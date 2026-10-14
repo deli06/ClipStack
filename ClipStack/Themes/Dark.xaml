@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Koyu tema renkleri. Light.xaml ile aynı anahtarlara sahip olmalı (testte karşılaştırılır). -->
+    <SolidColorBrush x:Key="BgBrush" Color="#1F2128" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#2A2D36" />
+    <SolidColorBrush x:Key="SurfaceHoverBrush" Color="#343844" />
+    <SolidColorBrush x:Key="PanelBrush" Color="#262931" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#3A3D47" />
+    <SolidColorBrush x:Key="FgBrush" Color="#E6E7EB" />
+    <SolidColorBrush x:Key="MutedBrush" Color="#9A9EA8" />
+    <SolidColorBrush x:Key="AccentBrush" Color="#3B6FE0" />
+    <SolidColorBrush x:Key="AccentFgBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ItemHoverBrush" Color="#2A2D36" />
+    <SolidColorBrush x:Key="WarnBrush" Color="#F0C060" />
+    <SolidColorBrush x:Key="ThumbBackBrush" Color="#FFFFFF" />
+</ResourceDictionary>

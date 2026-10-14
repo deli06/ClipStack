@@ -1,0 +1,4 @@
+# Metin dosyalarının satır sonları depoda tutarlı (LF) saklanır, Windows'ta CRLF olarak açılır.
+* text=auto
+*.ico binary
+*.png binary

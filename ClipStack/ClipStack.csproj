@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- WPF ve WinForms aynı anda açıkken isim çakışmalarını önlemek için kapalı -->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ClipStack</RootNamespace>
+    <AssemblyName>ClipStack</AssemblyName>
+    <!-- DPI modu app.manifest'te (WPF ApplicationHighDpiMode'u dikkate almaz; o sadece WinForms içindir). -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- WFAC010 WinForms uygulamalarına "DPI'ı manifest yerine SetHighDpiMode ile ver" der; burada uygulama
+         WPF'tir (WinForms Application.Run hiç çağrılmaz), WPF için doğru yol manifesttir. -->
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+    <Version>0.4.0</Version>
+    <Product>ClipStack</Product>
+    <!-- PublishSingleFile ile yayınlarken SQLite'ın yerel e_sqlite3.dll'i de exe'nin içine girsin;
+         yoksa exe'nin yanında ayrı dosya olarak kalır ve "tek exe" kopyalanınca uygulama açılmaz. -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- Exe'nin Gezgin/görev çubuğu ikonu. Aynı dosya tepsi ve pencere ikonu olarak da kullanılır. -->
+    <ApplicationIcon>Assets\ClipStack.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\ClipStack.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Standart SQLite yerine SQLCipher: geçmiş diskte şifreli durur (anahtar DPAPI ile korunur, bkz. DatabaseKey.cs). -->
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.10" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="ClipStack.Tests" />
+  </ItemGroup>
+
+</Project>

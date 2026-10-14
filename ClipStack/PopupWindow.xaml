@@ -1,0 +1,121 @@
+<Window x:Class="ClipStack.PopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ClipStack"
+        Icon="Assets/ClipStack.ico"
+        Width="560" Height="460" MinWidth="380" MinHeight="280"
+        WindowStyle="None" ResizeMode="CanResize"
+        ShowInTaskbar="False" Topmost="True"
+        WindowStartupLocation="Manual"
+        Background="{DynamicResource BgBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+        Foreground="{DynamicResource FgBrush}"
+        FontFamily="Segoe UI" FontSize="13">
+
+    <!-- Başlık çubuğu olmadan kenarlardan boyutlandırılabilsin (taşıma: alttaki kısayol satırından sürükle). -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="6" GlassFrameThickness="0" CornerRadius="0"
+                      UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Foreground" Value="{DynamicResource FgBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Bd" Background="Transparent" Padding="{TemplateBinding Padding}" CornerRadius="4">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ItemHoverBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource AccentFgBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="200" />
+            <!-- Önizleme sütunu; F3 ile koddan açılıp kapatılır, açıkken listeyle orantılı büyür. -->
+            <ColumnDefinition x:Name="PreviewColumn" Width="0" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="SearchBox" Grid.Row="0" Grid.ColumnSpan="2"
+                 Padding="8,6" Margin="0,0,0,8"
+                 TextChanged="SearchBox_TextChanged" />
+
+        <ListBox x:Name="List" Grid.Row="1" Grid.Column="0"
+                 Background="Transparent" BorderThickness="0" Foreground="{DynamicResource FgBrush}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 VirtualizingPanel.IsVirtualizing="True"
+                 SelectionChanged="List_SelectionChanged"
+                 MouseDoubleClick="List_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding QuickKey}" VerticalAlignment="Top" FontSize="11"
+                                   Opacity="0.55" Margin="0,1,0,0" />
+                        <TextBlock Grid.Column="1" Text="{Binding PinGlyph}" VerticalAlignment="Top" FontSize="11" />
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="{Binding Preview}" TextTrimming="CharacterEllipsis"
+                                       Visibility="{Binding ShowsText, Converter={StaticResource BoolToVis}}" />
+                            <Border Visibility="{Binding IsImage, Converter={StaticResource BoolToVis}}"
+                                    HorizontalAlignment="Left" Background="{DynamicResource ThumbBackBrush}" CornerRadius="3" Padding="1">
+                                <Image Source="{Binding Thumbnail}" MaxHeight="64" MaxWidth="320"
+                                       Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" />
+                            </Border>
+                            <TextBlock Text="{Binding Meta}" FontSize="11" Opacity="0.65" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border x:Name="PreviewPanel" Grid.Row="1" Grid.Column="1" Margin="8,0,0,0"
+                Background="{DynamicResource PanelBrush}" BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1" CornerRadius="4">
+            <Grid>
+                <TextBox x:Name="PreviewText" IsReadOnly="True" TextWrapping="Wrap"
+                         Background="Transparent" BorderThickness="0" Padding="8"
+                         FontFamily="Consolas" FontSize="12"
+                         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                         Focusable="False" />
+                <Image x:Name="PreviewImage" Margin="8" Stretch="Uniform" StretchDirection="DownOnly"
+                       RenderOptions.BitmapScalingMode="HighQuality" Visibility="Collapsed" />
+            </Grid>
+        </Border>
+
+        <TextBlock x:Name="StatusText" Grid.Row="2" Grid.ColumnSpan="2" Margin="2,6,2,0"
+                   FontSize="12" Foreground="{DynamicResource WarnBrush}" Visibility="Collapsed" TextWrapping="Wrap" />
+
+        <!-- Kısayol satırı aynı zamanda taşıma tutamacı. -->
+        <Border x:Name="DragHandle" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,6,0,0" Padding="2,2"
+                Background="Transparent" Cursor="SizeAll" ToolTip="Pencereyi taşımak için sürükleyin; boyutlandırmak için kenarlardan tutun."
+                MouseLeftButtonDown="DragHandle_MouseLeftButtonDown">
+            <TextBlock FontSize="11" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"
+                       Text="Enter: yapıştır   ·   Shift+Enter: düz metin   ·   Ctrl+Enter: sadece kopyala   ·   Ctrl+1…9: hızlı yapıştır   ·   F3: önizleme   ·   Ctrl+P: sabitle   ·   Shift+Del: sil   ·   Ctrl+Z: silmeyi geri al   ·   Ctrl+O: seçenekler   ·   Esc: kapat" />
+        </Border>
+    </Grid>
+</Window>

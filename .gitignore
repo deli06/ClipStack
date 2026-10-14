@@ -1,0 +1,48 @@
+# --- Derleme çıktıları ---
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm64/
+publish/
+*.pdb
+
+# --- Visual Studio / Rider / VS Code ---
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# --- Test sonuçları ---
+[Tt]est[Rr]esult*/
+*.trx
+coverage*/
+*.coverage
+
+# --- NuGet ---
+*.nupkg
+*.snupkg
+packages/
+
+# --- Uygulama verisi (asla depoya girmemeli: şifreli geçmiş, anahtar, ayarlar, log) ---
+history.db*
+db.key
+*.okunamayan-*
+settings.json
+log.txt
+log.txt.1
+
+# --- İşletim sistemi ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# --- Bu klasördeki eski kopyalar (depoya alınmıyor) ---
+/ClipStack_/
+/ClipStack.zip

@@ -16,8 +16,12 @@ namespace ClipStack.Tests
     {
         /// <summary>Testler kullanıcının gerçek log.txt dosyasına yazmasın.</summary>
         [System.Runtime.CompilerServices.ModuleInitializer]
-        internal static void Init() =>
+        internal static void Init()
+        {
             Log.PathOverride = Path.Combine(Path.GetTempPath(), "ClipStackTests.log");
+            // Türkçe metin bekleyen testler, testi çalıştıran bilgisayarın dilinden bağımsız olsun.
+            Localization.Apply(AppLanguage.Turkish);
+        }
     }
 
     [Collection("Settings")]

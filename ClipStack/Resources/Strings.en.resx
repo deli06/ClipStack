@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_StartFailed" xml:space="preserve">
+    <value>ClipStack could not start:
+
+{0}
+
+Details: {1}</value>
+  </data>
+  <data name="App_AlreadyRunning" xml:space="preserve">
+    <value>ClipStack is already running.</value>
+  </data>
+  <data name="App_Details" xml:space="preserve">
+    <value>Details: {0}</value>
+  </data>
+  <data name="App_HotkeyInUse" xml:space="preserve">
+    <value>The shortcut {0} is used by another application. Double-click the tray icon to open ClipStack, or change the shortcut in Options.</value>
+  </data>
+  <data name="App_KeyProblem" xml:space="preserve">
+    <value>The clipboard history could not be opened: the encryption key cannot be decrypted under this Windows account, or the history was encrypted with another key (e.g. the files were copied from another computer/account).
+
+Move the old files aside (without deleting them) and start with an empty history?
+If you choose "No", ClipStack will exit.</value>
+  </data>
+  <data name="App_UnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred; ClipStack keeps running:
+
+{0}
+
+Details: {1}</value>
+  </data>
+  <data name="App_LanguageRestart" xml:space="preserve">
+    <value>The language change takes effect after ClipStack restarts. Restart now?</value>
+  </data>
+  <data name="Pause_UntilResumed" xml:space="preserve">
+    <value>⏸ Recording paused (until resumed). Copied items are not being saved.</value>
+  </data>
+  <data name="Pause_Until" xml:space="preserve">
+    <value>⏸ Recording paused until {0}. Copied items are not being saved.</value>
+  </data>
+  <data name="Pause_Resumed" xml:space="preserve">
+    <value>Recording resumed.</value>
+  </data>
+  <data name="Tray_PausedIndefinitely" xml:space="preserve">
+    <value>ClipStack – recording paused</value>
+  </data>
+  <data name="Tray_PausedUntil" xml:space="preserve">
+    <value>ClipStack – recording paused until {0}</value>
+  </data>
+  <data name="Tray_Open" xml:space="preserve">
+    <value>Open history</value>
+  </data>
+  <data name="Tray_Options" xml:space="preserve">
+    <value>Options…</value>
+  </data>
+  <data name="Tray_Pause" xml:space="preserve">
+    <value>Pause copying</value>
+  </data>
+  <data name="Tray_Pause5" xml:space="preserve">
+    <value>5 minutes</value>
+  </data>
+  <data name="Tray_Pause15" xml:space="preserve">
+    <value>15 minutes</value>
+  </data>
+  <data name="Tray_Pause60" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="Tray_PauseIndefinitely" xml:space="preserve">
+    <value>Until I resume</value>
+  </data>
+  <data name="Tray_Resume" xml:space="preserve">
+    <value>Resume copying</value>
+  </data>
+  <data name="Tray_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Popup_Hints" xml:space="preserve">
+    <value>Enter: paste   ·   Shift+Enter: plain text   ·   Ctrl+Enter: copy only   ·   Ctrl+1…9: quick paste   ·   F3: preview   ·   Ctrl+P: pin   ·   Shift+Del: delete   ·   Ctrl+Z: undo delete   ·   Ctrl+O: options   ·   Esc: close</value>
+  </data>
+  <data name="Popup_DragTooltip" xml:space="preserve">
+    <value>Drag to move the window; drag its edges to resize.</value>
+  </data>
+  <data name="Popup_Deleted" xml:space="preserve">
+    <value>Item deleted.  Press Ctrl+Z to undo.</value>
+  </data>
+  <data name="Popup_Restored" xml:space="preserve">
+    <value>Deleted item restored.</value>
+  </data>
+  <data name="Popup_MoreUndo" xml:space="preserve">
+    <value>  ({0} more deletions can be undone)</value>
+  </data>
+  <data name="Popup_RestoreDuplicate" xml:space="preserve">
+    <value>This content was copied again in the meantime; it is already in the list.</value>
+  </data>
+  <data name="Popup_ClipboardLockedBy" xml:space="preserve">
+    <value>The clipboard is currently locked by another application ({0}). Try again in a moment.</value>
+  </data>
+  <data name="Popup_ClipboardLocked" xml:space="preserve">
+    <value>The clipboard is currently locked by another application. Try again in a moment.</value>
+  </data>
+  <data name="Popup_PasteFailed" xml:space="preserve">
+    <value>Could not paste the item:
+{0}</value>
+  </data>
+  <data name="Preview_FilesHeader" xml:space="preserve">
+    <value>{0} file(s)/folder(s):</value>
+  </data>
+  <data name="Preview_FileMissing" xml:space="preserve">
+    <value>   (no longer exists)</value>
+  </data>
+  <data name="Preview_MoreFiles" xml:space="preserve">
+    <value>… and {0} more</value>
+  </data>
+  <data name="Preview_Truncated" xml:space="preserve">
+    <value>
+
+… (showing the first {0} of {1} characters)</value>
+  </data>
+  <data name="Preview_Failed" xml:space="preserve">
+    <value>The preview could not be shown: {0}</value>
+  </data>
+  <data name="Item_ImagePreview" xml:space="preserve">
+    <value>Image  {0}×{1}</value>
+  </data>
+  <data name="Item_ImageMeta" xml:space="preserve">
+    <value>{0}×{1} image</value>
+  </data>
+  <data name="Item_FilesMeta" xml:space="preserve">
+    <value>{0} file(s)</value>
+  </data>
+  <data name="Item_Lines" xml:space="preserve">
+    <value>{0} lines</value>
+  </data>
+  <data name="Item_Chars" xml:space="preserve">
+    <value>{0} characters</value>
+  </data>
+  <data name="Item_Formatted" xml:space="preserve">
+    <value>formatted</value>
+  </data>
+  <data name="Export_Pinned" xml:space="preserve">
+    <value>pinned</value>
+  </data>
+  <data name="Error_BackupOverCurrent" xml:space="preserve">
+    <value>A backup cannot overwrite the database in use.</value>
+  </data>
+  <data name="Error_ImportSelf" xml:space="preserve">
+    <value>The database in use cannot be imported into itself.</value>
+  </data>
+  <data name="Error_BackupNotFound" xml:space="preserve">
+    <value>The backup file was not found.</value>
+  </data>
+  <data name="Error_NotABackup" xml:space="preserve">
+    <value>The selected file is not a valid ClipStack backup.</value>
+  </data>
+  <data name="Error_ForeignBackup" xml:space="preserve">
+    <value>The selected file could not be opened: it is not a ClipStack backup, or it was encrypted under another Windows account/computer. To move your history to another computer, create an unencrypted backup.</value>
+  </data>
+  <data name="Error_CorruptImage" xml:space="preserve">
+    <value>The saved image is corrupt and could not be opened.</value>
+  </data>
+  <data name="Error_ImageUnreadable" xml:space="preserve">
+    <value>The image could not be read.</value>
+  </data>
+  <data name="Settings_LoadProblem" xml:space="preserve">
+    <value>The settings file is corrupt, so the default settings are being used.</value>
+  </data>
+  <data name="Settings_LoadProblemBackup" xml:space="preserve">
+    <value>
+The old file was kept: {0}</value>
+  </data>
+  <data name="Key_Space" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="Opt_Title" xml:space="preserve">
+    <value>ClipStack Options</value>
+  </data>
+  <data name="Tab_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Sec_History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Lbl_MaxHistory" xml:space="preserve">
+    <value>Maximum number of copies to keep:</value>
+  </data>
+  <data name="Hint_MaxHistory" xml:space="preserve">
+    <value>When the limit is exceeded, the least recently used item is deleted. Pinned items do not count towards this limit. (10 – 100,000)</value>
+  </data>
+  <data name="Lbl_MaxImages" xml:space="preserve">
+    <value>How many of these may be images:</value>
+  </data>
+  <data name="Hint_MaxImages" xml:space="preserve">
+    <value>Images take much more space than text; when the limit is exceeded, the oldest image is deleted. (1 – 1,000)</value>
+  </data>
+  <data name="Chk_Expire" xml:space="preserve">
+    <value>Delete items after:</value>
+  </data>
+  <data name="Lbl_Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="Hint_Expire" xml:space="preserve">
+    <value>The period counts from when the item was last copied or pasted. Pinned items are never deleted. (1 – 3650)</value>
+  </data>
+  <data name="Sec_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Lbl_Theme" xml:space="preserve">
+    <value>Theme:</value>
+  </data>
+  <data name="Theme_System" xml:space="preserve">
+    <value>Match Windows</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Lbl_PopupPlacement" xml:space="preserve">
+    <value>History window:</value>
+  </data>
+  <data name="Place_Cursor" xml:space="preserve">
+    <value>Next to the cursor</value>
+  </data>
+  <data name="Place_Remember" xml:space="preserve">
+    <value>At its last position</value>
+  </data>
+  <data name="Place_Center" xml:space="preserve">
+    <value>Centered on screen</value>
+  </data>
+  <data name="Lbl_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="Lang_System" xml:space="preserve">
+    <value>Match Windows</value>
+  </data>
+  <data name="Hint_Language" xml:space="preserve">
+    <value>A language change takes effect after ClipStack restarts.</value>
+  </data>
+  <data name="Sec_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Chk_Startup" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="Opt_StartupPath" xml:space="preserve">
+    <value>File to run: {0}</value>
+  </data>
+  <data name="Tab_Hotkey" xml:space="preserve">
+    <value>Shortcut &amp; Privacy</value>
+  </data>
+  <data name="Sec_Hotkey" xml:space="preserve">
+    <value>Shortcut that opens the history</value>
+  </data>
+  <data name="Btn_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Hint_Hotkey" xml:space="preserve">
+    <value>Click the box and press the new key combination. It must include Ctrl or Alt (e.g. Ctrl+Alt+V, Ctrl+Shift+Space).</value>
+  </data>
+  <data name="Opt_HotkeyPrompt" xml:space="preserve">
+    <value>Press a key combination…</value>
+  </data>
+  <data name="Opt_HotkeyNeedsModifier" xml:space="preserve">
+    <value>Press it together with Ctrl or Alt…</value>
+  </data>
+  <data name="Sec_ExcludedApps" xml:space="preserve">
+    <value>Applications not to record</value>
+  </data>
+  <data name="Hint_ExcludedApps" xml:space="preserve">
+    <value>One process name per line (e.g. KeePass or chrome.exe). Anything copied from these applications is not saved. Most password managers also hide themselves anyway.</value>
+  </data>
+  <data name="Sec_ContentCheck" xml:space="preserve">
+    <value>Content check</value>
+  </data>
+  <data name="Chk_SkipSecrets" xml:space="preserve">
+    <value>Don't save text containing keys or tokens (recommended)</value>
+  </data>
+  <data name="Hint_SkipSecrets" xml:space="preserve">
+    <value>GitHub/GitLab/Slack/npm tokens, AWS and Google API keys, JWTs, private key (PEM) blocks, etc.</value>
+  </data>
+  <data name="Chk_SkipPasswords" xml:space="preserve">
+    <value>Don't save single-word text that looks like a password</value>
+  </data>
+  <data name="Hint_SkipPasswords" xml:space="preserve">
+    <value>Catches passwords copied from a browser's password manager (no spaces, 8–64 characters, mixed letters/digits/symbols). May also skip code snippets by mistake.</value>
+  </data>
+  <data name="Hint_Encryption" xml:space="preserve">
+    <value>🔒 Your history is stored encrypted on disk (SQLCipher). The key is tied to your Windows account; no other user or computer can open the file. Before doing something sensitive you can also use "Pause copying" in the tray menu.</value>
+  </data>
+  <data name="Opt_FieldMaxHistory" xml:space="preserve">
+    <value>The maximum number of copies</value>
+  </data>
+  <data name="Opt_FieldMaxImages" xml:space="preserve">
+    <value>The image limit</value>
+  </data>
+  <data name="Opt_FieldExpireDays" xml:space="preserve">
+    <value>The deletion period</value>
+  </data>
+  <data name="Opt_NumberRange" xml:space="preserve">
+    <value>{0} must be a number between {1} and {2}.</value>
+  </data>
+  <data name="Opt_ShrinkWarning" xml:space="preserve">
+    <value>The new settings may cause some old items to be deleted right away. Pinned items are kept.
+
+Continue?</value>
+  </data>
+  <data name="Opt_HotkeyTaken" xml:space="preserve">
+    <value>The shortcut {0} is used by another application. Choose another combination.</value>
+  </data>
+  <data name="Opt_SaveFailed" xml:space="preserve">
+    <value>The settings could not be saved:
+{0}</value>
+  </data>
+  <data name="Opt_StartupFailed" xml:space="preserve">
+    <value>The "Start with Windows" setting could not be changed:
+{0}</value>
+  </data>
+  <data name="Tab_Stats" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Stat_Since" xml:space="preserve">
+    <value>Counting since:</value>
+  </data>
+  <data name="Stat_Copies" xml:space="preserve">
+    <value>Total copies:</value>
+  </data>
+  <data name="Stat_Pastes" xml:space="preserve">
+    <value>Pastes from history:</value>
+  </data>
+  <data name="Stat_Today" xml:space="preserve">
+    <value>Items added today:</value>
+  </data>
+  <data name="Stat_Items" xml:space="preserve">
+    <value>Saved items:</value>
+  </data>
+  <data name="Stat_Kinds" xml:space="preserve">
+    <value>Text / Image / File:</value>
+  </data>
+  <data name="Stat_Pinned" xml:space="preserve">
+    <value>Pinned:</value>
+  </data>
+  <data name="Stat_Oldest" xml:space="preserve">
+    <value>Oldest item:</value>
+  </data>
+  <data name="Stat_Size" xml:space="preserve">
+    <value>Database size:</value>
+  </data>
+  <data name="Opt_ItemsWithLimit" xml:space="preserve">
+    <value>{0}  (limit: {1} + pinned)</value>
+  </data>
+  <data name="Opt_KindsDetail" xml:space="preserve">
+    <value>{0} / {1} / {2}  (formatted text: {3})</value>
+  </data>
+  <data name="Btn_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Btn_ResetStats" xml:space="preserve">
+    <value>Reset counters</value>
+  </data>
+  <data name="Btn_Compact" xml:space="preserve">
+    <value>Compact database</value>
+  </data>
+  <data name="Btn_ClearHistory" xml:space="preserve">
+    <value>Clear history</value>
+  </data>
+  <data name="Opt_ResetStatsConfirm" xml:space="preserve">
+    <value>Reset the copy and paste counters?
+Items in the history are not deleted.</value>
+  </data>
+  <data name="Opt_CompactFailed" xml:space="preserve">
+    <value>The database could not be compacted</value>
+  </data>
+  <data name="Opt_Compacted" xml:space="preserve">
+    <value>Database compacted.
+{0} → {1}</value>
+  </data>
+  <data name="Opt_ClearConfirm" xml:space="preserve">
+    <value>Delete all unpinned items? This cannot be undone.</value>
+  </data>
+  <data name="Opt_ClearedCompactFailed" xml:space="preserve">
+    <value>The history was cleared but the database could not be compacted</value>
+  </data>
+  <data name="Tab_Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="Sec_ManualBackup" xml:space="preserve">
+    <value>Manual backup</value>
+  </data>
+  <data name="Btn_Backup" xml:space="preserve">
+    <value>Back up…</value>
+  </data>
+  <data name="Btn_Restore" xml:space="preserve">
+    <value>Restore from backup…</value>
+  </data>
+  <data name="Hint_Backup" xml:space="preserve">
+    <value>A backup writes the whole history (text, image and file items, including pins) to a single .db file. An encrypted backup can only be opened under this Windows account; to move it to another computer, create an unencrypted one (and keep the file somewhere safe). Restoring does not delete the current history; it adds the items from the backup (the same content is never added twice).</value>
+  </data>
+  <data name="Sec_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Btn_ExportText" xml:space="preserve">
+    <value>Export texts as .txt…</value>
+  </data>
+  <data name="Hint_Export" xml:space="preserve">
+    <value>Writes all text items, with their date and source application, to a readable (unencrypted) text file.</value>
+  </data>
+  <data name="Sec_AutoBackup" xml:space="preserve">
+    <value>Automatic backup</value>
+  </data>
+  <data name="Chk_AutoBackup" xml:space="preserve">
+    <value>Back up automatically once a day</value>
+  </data>
+  <data name="Btn_OpenBackupFolder" xml:space="preserve">
+    <value>Open backup folder</value>
+  </data>
+  <data name="Opt_BackupInfo" xml:space="preserve">
+    <value>The last {0} backups are kept: {1}</value>
+  </data>
+  <data name="Opt_LastAutoBackup" xml:space="preserve">
+    <value>
+Last automatic backup: {0} ({1})</value>
+  </data>
+  <data name="Opt_NoAutoBackup" xml:space="preserve">
+    <value>
+No automatic backup yet.</value>
+  </data>
+  <data name="Opt_SaveBackupTitle" xml:space="preserve">
+    <value>Save backup</value>
+  </data>
+  <data name="Opt_BackupFilter" xml:space="preserve">
+    <value>ClipStack backup (*.db)|*.db</value>
+  </data>
+  <data name="Opt_BackupFileName" xml:space="preserve">
+    <value>ClipStack-backup-{0}.db</value>
+  </data>
+  <data name="Opt_EncryptQuestion" xml:space="preserve">
+    <value>Encrypt the backup?
+
+Yes (recommended): It can only be restored under this Windows account. Anyone who gets hold of the file cannot read it.
+
+No: It can be restored on another computer too, but everything in it (including passwords) can be read by anyone who opens the file.</value>
+  </data>
+  <data name="Opt_BackupFailed" xml:space="preserve">
+    <value>The backup failed</value>
+  </data>
+  <data name="Opt_BackupDoneEncrypted" xml:space="preserve">
+    <value>Encrypted backup created:
+{0}
+({1})</value>
+  </data>
+  <data name="Opt_BackupDonePlain" xml:space="preserve">
+    <value>Unencrypted backup created:
+{0}
+({1})</value>
+  </data>
+  <data name="Opt_RestoreTitle" xml:space="preserve">
+    <value>Choose a backup to restore</value>
+  </data>
+  <data name="Opt_RestoreFilter" xml:space="preserve">
+    <value>ClipStack backup (*.db)|*.db|All files (*.*)|*.*</value>
+  </data>
+  <data name="Opt_RestoreConfirm" xml:space="preserve">
+    <value>The items in the backup will be added to the current history. Existing items are not deleted.
+
+Note: if the total exceeds the limit, the oldest unpinned items are deleted on the next copy. To keep them all, raise the limit on the General tab first.
+
+Continue?</value>
+  </data>
+  <data name="Opt_RestoreFailed" xml:space="preserve">
+    <value>The backup could not be restored</value>
+  </data>
+  <data name="Opt_Restored" xml:space="preserve">
+    <value>{0} items restored.</value>
+  </data>
+  <data name="Opt_RestoredNothing" xml:space="preserve">
+    <value>All items in the backup are already in the history.</value>
+  </data>
+  <data name="Opt_ExportTitle" xml:space="preserve">
+    <value>Export texts</value>
+  </data>
+  <data name="Opt_ExportFilter" xml:space="preserve">
+    <value>Text file (*.txt)|*.txt</value>
+  </data>
+  <data name="Opt_ExportFileName" xml:space="preserve">
+    <value>ClipStack-texts-{0}.txt</value>
+  </data>
+  <data name="Opt_ExportFailed" xml:space="preserve">
+    <value>The export failed</value>
+  </data>
+  <data name="Opt_Exported" xml:space="preserve">
+    <value>{0} text items exported:
+{1}</value>
+  </data>
+  <data name="Tab_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Opt_Version" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>A lightweight clipboard history manager for Windows. It keeps the text, images and files you copy, and lets you search them with a shortcut and paste them again wherever you want. Inspired by Ditto.</value>
+  </data>
+  <data name="About_Hotkey" xml:space="preserve">
+    <value>Shortcut:</value>
+  </data>
+  <data name="About_Runtime" xml:space="preserve">
+    <value>Runtime:</value>
+  </data>
+  <data name="About_DataFolder" xml:space="preserve">
+    <value>Data folder:</value>
+  </data>
+  <data name="Btn_OpenDataFolder" xml:space="preserve">
+    <value>Open data folder</value>
+  </data>
+  <data name="Sec_License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="About_License" xml:space="preserve">
+    <value>ClipStack is free software: you can redistribute and modify it under the terms of the GNU General Public License (GPL), version 3 or any later version. This program comes with ABSOLUTELY NO WARRANTY; see the license text for details.</value>
+  </data>
+  <data name="Btn_License" xml:space="preserve">
+    <value>License (GPL-3.0)</value>
+  </data>
+  <data name="Btn_Notices" xml:space="preserve">
+    <value>Third-party notices</value>
+  </data>
+  <data name="Opt_FileNotFound" xml:space="preserve">
+    <value>{0} was not found. It should be in the folder where ClipStack is installed.</value>
+  </data>
+  <data name="Btn_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Btn_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+</root>

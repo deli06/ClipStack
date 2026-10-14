@@ -17,6 +17,9 @@
     <NoWarn>$(NoWarn);WFAC010</NoWarn>
     <Version>0.4.0</Version>
     <Product>ClipStack</Product>
+    <Copyright>Copyright © 2026 ClipStack katkıcıları · GPL-3.0-or-later</Copyright>
+    <!-- Sürüm bilgisi "0.4.0+<git özeti>" değil sade "0.4.0" olsun (Hakkında ve kurulum paketi bunu gösterir). -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <!-- PublishSingleFile ile yayınlarken SQLite'ın yerel e_sqlite3.dll'i de exe'nin içine girsin;
          yoksa exe'nin yanında ayrı dosya olarak kalır ve "tek exe" kopyalanınca uygulama açılmaz. -->
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
@@ -26,6 +29,53 @@
 
   <ItemGroup>
     <Resource Include="Assets\ClipStack.ico" />
+  </ItemGroup>
+
+  <!--
+    Arayüz metinleri: Resources\Strings.resx (Türkçe, varsayılan) ve Strings.en.resx (İngilizce).
+    Kodda kullanılan "Strings" sınıfı (Strings.Opt_Title gibi) derleme sırasında üretilir; Visual Studio
+    gerekmez ve yanlış yazılmış bir anahtar derleme hatası verir.
+
+    Üretim, WPF'in XAML derlemesinden (MarkupCompilePass1) ÖNCE yapılmalı: XAML projenin kendi tiplerini
+    ({l:Loc}) kullandığı için WPF önce geçici bir derleme yapar ve o derleme de Strings sınıfını görmelidir.
+    MSBuild'in yerleşik StronglyTyped* özelliği bunu çok geç (ResGen aşamasında) yaptığı için burada elle yapılır.
+  -->
+  <PropertyGroup>
+    <!-- Sabit yol: WPF'in geçici projesi ara klasörü farklı hesaplar; iki derleme de aynı dosyayı görmeli. -->
+    <StringsGeneratedDir>$(MSBuildProjectDirectory)\obj\generated\</StringsGeneratedDir>
+    <StringsDesignerFile>$(StringsGeneratedDir)Strings.Designer.cs</StringsDesignerFile>
+  </PropertyGroup>
+
+  <Target Name="GenerateStringsClass" BeforeTargets="MarkupCompilePass1;CoreCompile"
+          Inputs="Resources\Strings.resx" Outputs="$(StringsDesignerFile)">
+    <MakeDir Directories="$(StringsGeneratedDir)" />
+    <GenerateResource Sources="Resources\Strings.resx"
+                      OutputResources="$(StringsGeneratedDir)Strings.designer-only.resources"
+                      StronglyTypedLanguage="CSharp"
+                      StronglyTypedNamespace="ClipStack.Resources"
+                      StronglyTypedClassName="Strings"
+                      StronglyTypedManifestPrefix="ClipStack.Resources"
+                      StronglyTypedFileName="$(StringsDesignerFile)"
+                      PublicClass="true"
+                      ExecuteAsTool="false" />
+  </Target>
+
+  <Target Name="IncludeStringsClass" BeforeTargets="MarkupCompilePass1;CoreCompile" AfterTargets="GenerateStringsClass">
+    <!--
+      Her durumda tam olarak bir kopya derlensin: WPF'in geçici projesi derleme listesini ana projeden hazır
+      alır (dosya zaten listededir), ayrıca proje klasöründe eski bir Strings.Designer.cs kalmışsa varsayılan
+      *.cs taraması onu da ekler. Hepsini çıkarıp sadece taze üretileni ekle.
+    -->
+    <ItemGroup>
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)%(Compile.Extension)' == 'Strings.Designer.cs'" />
+      <Compile Include="$(StringsDesignerFile)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- GPL ve üçüncü taraf lisansları exe'nin yanında dağıtılır (Hakkında sekmesi de bunları açar). -->
+  <ItemGroup>
+    <None Include="..\LICENSE" Link="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="..\THIRD-PARTY-NOTICES.txt" Link="THIRD-PARTY-NOTICES.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

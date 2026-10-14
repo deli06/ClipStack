@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows.Input;
+using ClipStack.Resources;
 
 namespace ClipStack
 {
@@ -42,6 +43,10 @@ namespace ClipStack
         /// <summary>Renk teması: Windows ayarını izle, her zaman açık veya her zaman koyu.</summary>
         [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public AppTheme Theme { get; set; } = AppTheme.System;
+
+        /// <summary>Arayüz dili: Windows'a uy, Türkçe veya İngilizce. Değişiklik yeniden başlatınca geçerli olur.</summary>
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AppLanguage Language { get; set; } = AppLanguage.System;
 
         /// <summary>Geçmiş penceresi nerede açılsın.</summary>
         [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
@@ -141,16 +146,44 @@ namespace ClipStack
         public static string SettingsPath => Path.Combine(DataFolder, "settings.json");
         public static string BackupFolder => Path.Combine(DataFolder, "Backups");
 
-        public static void Load()
+        /// <summary>
+        /// Son yüklemede bir sorun olduysa kullanıcıya gösterilecek açıklama (ör. ayar dosyası bozuktu); yoksa null.
+        /// </summary>
+        public static string? LoadProblem { get; private set; }
+
+        public static void Load() => LoadFrom(SettingsPath);
+
+        /// <summary>
+        /// Ayarları okur. Dosya bozuksa varsayılanlarla devam eder, ama bozuk dosyayı silinmeden önce
+        /// <c>settings.json.bozuk-…</c> adıyla yedekler ve log'a yazar; aksi halde ilk kayıtta üzerine yazılır
+        /// ve kullanıcının ayarları iz bırakmadan kaybolurdu.
+        /// </summary>
+        internal static void LoadFrom(string path)
         {
+            LoadProblem = null;
+            Current = new AppSettings();
             try
             {
-                if (File.Exists(SettingsPath))
-                    Current = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(SettingsPath)) ?? new AppSettings();
+                if (File.Exists(path))
+                    Current = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(path)) ?? new AppSettings();
             }
-            catch
+            catch (Exception ex)
             {
-                // Bozuk dosya: varsayılanlarla devam et.
+                string? backup = null;
+                try
+                {
+                    backup = path + ".bozuk-" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
+                    File.Copy(path, backup, overwrite: true);
+                }
+                catch (Exception copyEx)
+                {
+                    Log.Error("Bozuk ayar dosyası yedeklenemedi", copyEx);
+                    backup = null;
+                }
+                Log.Error($"Ayar dosyası okunamadı, varsayılan ayarlarla devam ediliyor: {path}" +
+                          (backup != null ? $" (bozuk dosya yedeklendi: {backup})" : ""), ex);
+                LoadProblem = Strings.Settings_LoadProblem +
+                              (backup != null ? Localization.F(Strings.Settings_LoadProblemBackup, Path.GetFileName(backup)) : "");
                 Current = new AppSettings();
             }
             Clamp(Current);
@@ -175,6 +208,7 @@ namespace ClipStack
             s.PopupHeight = ClampSize(s.PopupHeight, MinPopupHeight, DefaultPopupHeight);
             if (!Enum.IsDefined(s.Theme)) s.Theme = AppTheme.System;
             if (!Enum.IsDefined(s.PopupPlacement)) s.PopupPlacement = PopupPlacement.Cursor;
+            if (!Enum.IsDefined(s.Language)) s.Language = AppLanguage.System;
             if (!IsValidHotkey(s.HotkeyModifiers, s.HotkeyKey))
             {
                 s.HotkeyModifiers = DefaultHotkeyModifiers;
@@ -244,7 +278,7 @@ namespace ClipStack
             Key.OemMinus => "-",
             Key.OemComma => ",",
             Key.OemPeriod => ".",
-            Key.Space => "Boşluk",
+            Key.Space => Strings.Key_Space,
             Key.Insert => "Ins",
             Key.Return => "Enter",
             _ => key.ToString()

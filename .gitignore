@@ -46,3 +46,6 @@ Desktop.ini
 # --- Bu klasördeki eski kopyalar (depoya alınmıyor) ---
 /ClipStack_/
 /ClipStack.zip
+
+# --- build.ps1 çıktıları (yayınlanan exe, kurulum paketi) ---
+artifacts/

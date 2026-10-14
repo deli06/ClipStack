@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using ClipStack.Resources;
 
 namespace ClipStack
 {
@@ -50,7 +51,7 @@ namespace ClipStack
             }
             catch (ArgumentException ex)
             {
-                throw new InvalidDataException("Kayıtlı görsel bozuk, açılamadı.", ex);
+                throw new InvalidDataException(Strings.Error_CorruptImage, ex);
             }
 
             var data = new System.Windows.Forms.DataObject();
@@ -98,6 +99,27 @@ namespace ClipStack
             catch (ExternalException)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Panoyu o an açık tutan uygulamanın süreç adı ("pano kilitli" hatasında kimin kilitlediğini söylemek için).
+        /// Bilinmiyorsa null.
+        /// </summary>
+        public static string? ClipboardHolder()
+        {
+            IntPtr hwnd = Native.GetOpenClipboardWindow();
+            if (hwnd == IntPtr.Zero) return null;
+            try
+            {
+                Native.GetWindowThreadProcessId(hwnd, out uint pid);
+                if (pid == 0) return null;
+                using var proc = System.Diagnostics.Process.GetProcessById((int)pid);
+                return proc.ProcessName;
+            }
+            catch
+            {
+                return null; // süreç bu arada kapanmış olabilir
             }
         }
 

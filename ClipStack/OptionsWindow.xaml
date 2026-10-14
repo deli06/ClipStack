@@ -1,15 +1,17 @@
 <Window x:Class="ClipStack.OptionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ClipStack Seçenekleri"
+        xmlns:l="clr-namespace:ClipStack"
+        Title="{l:Loc Opt_Title}"
         Icon="Assets/ClipStack.ico"
-        Width="560" Height="620" MinWidth="500" MinHeight="520"
+        Width="580" Height="640" MinWidth="520" MinHeight="540"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
         Background="{DynamicResource BgBrush}" Foreground="{DynamicResource FgBrush}"
         FontFamily="Segoe UI" FontSize="13">
 
-    <!-- Renkler temadan (Themes\Dark.xaml / Light.xaml), kontrol şablonları Themes\Controls.xaml'den gelir. -->
+    <!-- Renkler temadan (Themes\Dark.xaml / Light.xaml), kontrol şablonları Themes\Controls.xaml'den,
+         metinler Resources\Strings*.resx'ten ({l:Loc Anahtar}) gelir. -->
     <Window.Resources>
         <Style x:Key="Hint" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{DynamicResource MutedBrush}" />
@@ -44,38 +46,35 @@
         <TabControl x:Name="Tabs" SelectionChanged="Tabs_SelectionChanged">
 
             <!-- ============ GENEL ============ -->
-            <TabItem x:Name="GeneralTab" Header="Genel">
+            <TabItem x:Name="GeneralTab" Header="{l:Loc Tab_General}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="14">
 
-                        <TextBlock Text="Geçmiş" Style="{StaticResource Section}" />
+                        <TextBlock Text="{l:Loc Sec_History}" Style="{StaticResource Section}" />
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Kaydedilecek en fazla kopya sayısı:" VerticalAlignment="Center" Width="250" />
+                            <TextBlock Text="{l:Loc Lbl_MaxHistory}" VerticalAlignment="Center" Width="260" TextWrapping="Wrap" />
                             <TextBox x:Name="MaxHistoryBox" Style="{StaticResource Number}" />
                         </StackPanel>
-                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,14"
-                                   Text="Sınır aşılınca en uzun süredir kullanılmayan kayıt silinir. Sabitlenen kayıtlar bu sayıya dahil değildir. (10 – 100.000)" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,14" Text="{l:Loc Hint_MaxHistory}" />
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Bunlardan en fazla kaçı görsel olabilir:" VerticalAlignment="Center" Width="250" />
+                            <TextBlock Text="{l:Loc Lbl_MaxImages}" VerticalAlignment="Center" Width="260" TextWrapping="Wrap" />
                             <TextBox x:Name="MaxImagesBox" Style="{StaticResource Number}" />
                         </StackPanel>
-                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,14"
-                                   Text="Görseller metne göre çok yer kaplar; sınır aşılınca en eski görsel silinir. (1 – 1.000)" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,14" Text="{l:Loc Hint_MaxImages}" />
 
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox x:Name="ExpireCheck" Content="Kayıtları şu süre sonra sil:"
-                                      VerticalAlignment="Center" Width="250"
+                            <CheckBox x:Name="ExpireCheck" Content="{l:Loc Chk_Expire}"
+                                      VerticalAlignment="Center" Width="260"
                                       Checked="ExpireCheck_Changed" Unchecked="ExpireCheck_Changed" />
                             <TextBox x:Name="ExpireDaysBox" Style="{StaticResource Number}" />
-                            <TextBlock Text="gün" VerticalAlignment="Center" Margin="6,0,0,0" />
+                            <TextBlock Text="{l:Loc Lbl_Days}" VerticalAlignment="Center" Margin="6,0,0,0" />
                         </StackPanel>
-                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,18"
-                                   Text="Süre, kaydın son kopyalandığı veya yapıştırıldığı andan itibaren sayılır. Sabitlenen kayıtlar asla silinmez. (1 – 3650)" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,18" Text="{l:Loc Hint_Expire}" />
 
-                        <TextBlock Text="Görünüm" Style="{StaticResource Section}" />
-                        <Grid Margin="0,0,0,18">
+                        <TextBlock Text="{l:Loc Sec_Appearance}" Style="{StaticResource Section}" />
+                        <Grid Margin="0,0,0,4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140" />
                                 <ColumnDefinition Width="*" />
@@ -83,30 +82,39 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Tema:" VerticalAlignment="Center" Margin="0,4" />
+                            <TextBlock Text="{l:Loc Lbl_Theme}" VerticalAlignment="Center" Margin="0,4" />
                             <WrapPanel Grid.Column="1" VerticalAlignment="Center">
-                                <RadioButton x:Name="ThemeSystem" GroupName="Theme" Content="Windows'a uy" Margin="0,4,14,4" />
-                                <RadioButton x:Name="ThemeLight" GroupName="Theme" Content="Açık" Margin="0,4,14,4" />
-                                <RadioButton x:Name="ThemeDark" GroupName="Theme" Content="Koyu" Margin="0,4,14,4" />
+                                <RadioButton x:Name="ThemeSystem" GroupName="Theme" Content="{l:Loc Theme_System}" Margin="0,4,14,4" />
+                                <RadioButton x:Name="ThemeLight" GroupName="Theme" Content="{l:Loc Theme_Light}" Margin="0,4,14,4" />
+                                <RadioButton x:Name="ThemeDark" GroupName="Theme" Content="{l:Loc Theme_Dark}" Margin="0,4,14,4" />
                             </WrapPanel>
-                            <TextBlock Grid.Row="1" Text="Geçmiş penceresi:" VerticalAlignment="Center" Margin="0,4" />
+                            <TextBlock Grid.Row="1" Text="{l:Loc Lbl_PopupPlacement}" VerticalAlignment="Center" Margin="0,4" />
                             <WrapPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                                <RadioButton x:Name="PlaceCursor" GroupName="Place" Content="İmlecin yanında" Margin="0,4,14,4" />
-                                <RadioButton x:Name="PlaceRemember" GroupName="Place" Content="Son konumunda" Margin="0,4,14,4" />
-                                <RadioButton x:Name="PlaceCenter" GroupName="Place" Content="Ekranın ortasında" Margin="0,4,14,4" />
+                                <RadioButton x:Name="PlaceCursor" GroupName="Place" Content="{l:Loc Place_Cursor}" Margin="0,4,14,4" />
+                                <RadioButton x:Name="PlaceRemember" GroupName="Place" Content="{l:Loc Place_Remember}" Margin="0,4,14,4" />
+                                <RadioButton x:Name="PlaceCenter" GroupName="Place" Content="{l:Loc Place_Center}" Margin="0,4,14,4" />
+                            </WrapPanel>
+                            <TextBlock Grid.Row="2" Text="{l:Loc Lbl_Language}" VerticalAlignment="Center" Margin="0,4" />
+                            <!-- Dil adları her dilde kendi adıyla yazılır (Türkçe arayüzde de "English"). -->
+                            <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+                                <RadioButton x:Name="LangSystem" GroupName="Lang" Content="{l:Loc Lang_System}" Margin="0,4,14,4" />
+                                <RadioButton x:Name="LangTurkish" GroupName="Lang" Content="Türkçe" Margin="0,4,14,4" />
+                                <RadioButton x:Name="LangEnglish" GroupName="Lang" Content="English" Margin="0,4,14,4" />
                             </WrapPanel>
                         </Grid>
+                        <TextBlock Style="{StaticResource Hint}" Margin="140,0,0,18" Text="{l:Loc Hint_Language}" />
 
-                        <TextBlock Text="Sistem" Style="{StaticResource Section}" />
-                        <CheckBox x:Name="StartupCheck" Content="Windows ile başlat" />
+                        <TextBlock Text="{l:Loc Sec_System}" Style="{StaticResource Section}" />
+                        <CheckBox x:Name="StartupCheck" Content="{l:Loc Chk_Startup}" />
                         <TextBlock x:Name="StartupPathText" Style="{StaticResource Hint}" Margin="20,4,0,0" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
             <!-- ============ KISAYOL VE GİZLİLİK ============ -->
-            <TabItem x:Name="HotkeyTab" Header="Kısayol ve Gizlilik">
+            <TabItem x:Name="HotkeyTab" Header="{l:Loc Tab_Hotkey}">
                 <Grid Margin="14">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -117,44 +125,39 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
-                        <TextBlock Text="Geçmişi açan kısayol" Style="{StaticResource Section}" />
+                        <TextBlock Text="{l:Loc Sec_Hotkey}" Style="{StaticResource Section}" />
                         <StackPanel Orientation="Horizontal">
                             <TextBox x:Name="HotkeyBox" Width="200" Padding="4,3" IsReadOnly="True"
                                      IsReadOnlyCaretVisible="False" Cursor="Arrow"
                                      PreviewKeyDown="HotkeyBox_PreviewKeyDown"
                                      GotKeyboardFocus="HotkeyBox_GotKeyboardFocus"
                                      LostKeyboardFocus="HotkeyBox_LostKeyboardFocus" />
-                            <Button Content="Varsayılan" Margin="8,0,0,0" Click="HotkeyDefault_Click" />
+                            <Button Content="{l:Loc Btn_Default}" Margin="8,0,0,0" Click="HotkeyDefault_Click" />
                         </StackPanel>
-                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,18"
-                                   Text="Kutuya tıklayıp yeni tuş birleşimine bas. Ctrl veya Alt içermeli (ör. Ctrl+Alt+V, Ctrl+Shift+Boşluk)." />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,18" Text="{l:Loc Hint_Hotkey}" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="1" Text="Kaydedilmeyecek uygulamalar" Style="{StaticResource Section}" />
+                    <TextBlock Grid.Row="1" Text="{l:Loc Sec_ExcludedApps}" Style="{StaticResource Section}" />
 
                     <TextBox Grid.Row="2" x:Name="ExcludedAppsBox" AcceptsReturn="True" TextWrapping="NoWrap"
                              VerticalScrollBarVisibility="Auto" Padding="4" MinHeight="90"
                              FontFamily="Consolas" />
 
-                    <TextBlock Grid.Row="3" Style="{StaticResource Hint}" Margin="0,4,0,0"
-                               Text="Her satıra bir süreç adı (ör. KeePass veya chrome.exe). Bu uygulamalardan kopyalananlar geçmişe alınmaz. Parola yöneticilerinin çoğu ayrıca kendini zaten gizler." />
+                    <TextBlock Grid.Row="3" Style="{StaticResource Hint}" Margin="0,4,0,0" Text="{l:Loc Hint_ExcludedApps}" />
 
                     <StackPanel Grid.Row="4" Margin="0,14,0,0">
-                        <TextBlock Text="İçerik kontrolü" Style="{StaticResource Section}" />
-                        <CheckBox x:Name="SkipSecretsCheck" Content="Anahtar ve token içeren metinleri kaydetme (önerilir)" />
-                        <TextBlock Style="{StaticResource Hint}" Margin="20,2,0,8"
-                                   Text="GitHub/GitLab/Slack/npm token'ları, AWS ve Google API anahtarları, JWT, özel anahtar (PEM) blokları vb." />
-                        <CheckBox x:Name="SkipPasswordsCheck" Content="Parolaya benzeyen tek parça metinleri kaydetme" />
-                        <TextBlock Style="{StaticResource Hint}" Margin="20,2,0,8"
-                                   Text="Tarayıcının parola yöneticisinden kopyalanan parolaları yakalar (boşluksuz, 8–64 karakter, harf/rakam/simge karışık). Kod parçalarını da yanlışlıkla atlayabilir." />
-                        <TextBlock Style="{StaticResource Hint}"
-                                   Text="🔒 Geçmiş diskte şifreli saklanır (SQLCipher). Anahtar Windows hesabınıza bağlıdır; dosyayı başka kullanıcı veya bilgisayar açamaz. Hassas bir işlem öncesi tepsi menüsünden &quot;Kaydı duraklat&quot; da kullanılabilir." />
+                        <TextBlock Text="{l:Loc Sec_ContentCheck}" Style="{StaticResource Section}" />
+                        <CheckBox x:Name="SkipSecretsCheck" Content="{l:Loc Chk_SkipSecrets}" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="20,2,0,8" Text="{l:Loc Hint_SkipSecrets}" />
+                        <CheckBox x:Name="SkipPasswordsCheck" Content="{l:Loc Chk_SkipPasswords}" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="20,2,0,8" Text="{l:Loc Hint_SkipPasswords}" />
+                        <TextBlock Style="{StaticResource Hint}" Text="{l:Loc Hint_Encryption}" />
                     </StackPanel>
                 </Grid>
             </TabItem>
 
             <!-- ============ İSTATİSTİKLER ============ -->
-            <TabItem x:Name="StatsTab" Header="İstatistikler">
+            <TabItem x:Name="StatsTab" Header="{l:Loc Tab_Stats}">
                 <Grid Margin="14">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -174,63 +177,62 @@
                             <RowDefinition /><RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Style="{StaticResource StatLabel}" Text="Sayım başlangıcı:" />
+                        <TextBlock Grid.Row="0" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Since}" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatSince" />
-                        <TextBlock Grid.Row="1" Style="{StaticResource StatLabel}" Text="Toplam kopyalama:" />
+                        <TextBlock Grid.Row="1" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Copies}" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatCopies" />
-                        <TextBlock Grid.Row="2" Style="{StaticResource StatLabel}" Text="Geçmişten yapıştırma:" />
+                        <TextBlock Grid.Row="2" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Pastes}" />
                         <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatPastes" />
-                        <TextBlock Grid.Row="3" Style="{StaticResource StatLabel}" Text="Bugün eklenen kayıt:" />
+                        <TextBlock Grid.Row="3" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Today}" />
                         <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatToday" />
 
-                        <TextBlock Grid.Row="5" Style="{StaticResource StatLabel}" Text="Kayıtlı öğe:" />
+                        <TextBlock Grid.Row="5" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Items}" />
                         <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatItems" TextWrapping="Wrap" />
-                        <TextBlock Grid.Row="6" Style="{StaticResource StatLabel}" Text="Metin / Görsel / Dosya:" />
+                        <TextBlock Grid.Row="6" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Kinds}" />
                         <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatKinds" TextWrapping="Wrap" />
-                        <TextBlock Grid.Row="7" Style="{StaticResource StatLabel}" Text="Sabitlenmiş:" />
+                        <TextBlock Grid.Row="7" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Pinned}" />
                         <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatPinned" />
-                        <TextBlock Grid.Row="8" Style="{StaticResource StatLabel}" Text="En eski kayıt:" />
+                        <TextBlock Grid.Row="8" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Oldest}" />
                         <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatOldest" />
-                        <TextBlock Grid.Row="9" Style="{StaticResource StatLabel}" Text="Veritabanı boyutu:" />
+                        <TextBlock Grid.Row="9" Style="{StaticResource StatLabel}" Text="{l:Loc Stat_Size}" />
                         <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="StatSize" />
                     </Grid>
 
                     <WrapPanel Grid.Row="2" Margin="0,10,0,0">
-                        <Button Content="Yenile" Margin="0,0,6,6" Click="RefreshStats_Click" />
-                        <Button Content="Sayaçları sıfırla" Margin="0,0,6,6" Click="ResetStats_Click" />
-                        <Button Content="Veritabanını sıkıştır" Margin="0,0,6,6" Click="Compact_Click" />
-                        <Button Content="Geçmişi temizle" Margin="0,0,6,6" Click="ClearHistory_Click" />
+                        <Button Content="{l:Loc Btn_Refresh}" Margin="0,0,6,6" Click="RefreshStats_Click" />
+                        <Button Content="{l:Loc Btn_ResetStats}" Margin="0,0,6,6" Click="ResetStats_Click" />
+                        <Button Content="{l:Loc Btn_Compact}" Margin="0,0,6,6" Click="Compact_Click" />
+                        <Button Content="{l:Loc Btn_ClearHistory}" Margin="0,0,6,6" Click="ClearHistory_Click" />
                     </WrapPanel>
                 </Grid>
             </TabItem>
 
             <!-- ============ YEDEKLEME ============ -->
-            <TabItem x:Name="BackupTab" Header="Yedekleme">
+            <TabItem x:Name="BackupTab" Header="{l:Loc Tab_Backup}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="14">
-                        <TextBlock Text="Elle yedek" Style="{StaticResource Section}" />
+                        <TextBlock Text="{l:Loc Sec_ManualBackup}" Style="{StaticResource Section}" />
                         <WrapPanel>
-                            <Button Content="Yedek al…" Margin="0,0,6,6" Click="Backup_Click" />
-                            <Button Content="Yedekten geri yükle…" Margin="0,0,6,6" Click="Restore_Click" />
+                            <Button Content="{l:Loc Btn_Backup}" Margin="0,0,6,6" Click="Backup_Click" />
+                            <Button Content="{l:Loc Btn_Restore}" Margin="0,0,6,6" Click="Restore_Click" />
                         </WrapPanel>
-                        <TextBlock Style="{StaticResource Hint}" Margin="0,2,0,18"
-                                   Text="Yedek; metin, görsel, dosya kayıtları ve sabitlemelerle birlikte tüm geçmişi tek bir .db dosyasına yazar. Şifreli yedek sadece bu Windows hesabında açılır; başka bilgisayara taşımak için şifresiz alın (dosyayı güvenli yerde tutun). Geri yükleme mevcut geçmişi silmez, yedekteki kayıtları ekler (aynı içerik iki kez eklenmez)." />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,2,0,18" Text="{l:Loc Hint_Backup}" />
 
-                        <TextBlock Text="Dışa aktar" Style="{StaticResource Section}" />
-                        <Button Content="Metinleri .txt olarak dışa aktar…" HorizontalAlignment="Left" Click="ExportText_Click" />
-                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,18"
-                                   Text="Tüm metin kayıtlarını tarih ve kaynak uygulamayla birlikte okunabilir (şifresiz) bir metin dosyasına yazar." />
+                        <TextBlock Text="{l:Loc Sec_Export}" Style="{StaticResource Section}" />
+                        <Button Content="{l:Loc Btn_ExportText}" HorizontalAlignment="Left" Click="ExportText_Click" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,4,0,18" Text="{l:Loc Hint_Export}" />
 
-                        <TextBlock Text="Otomatik yedek" Style="{StaticResource Section}" />
-                        <CheckBox x:Name="AutoBackupCheck" Content="Günde bir kez otomatik yedek al" />
+                        <TextBlock Text="{l:Loc Sec_AutoBackup}" Style="{StaticResource Section}" />
+                        <CheckBox x:Name="AutoBackupCheck" Content="{l:Loc Chk_AutoBackup}" />
                         <TextBlock x:Name="AutoBackupInfo" Style="{StaticResource Hint}" Margin="20,4,0,8" />
-                        <Button Content="Yedek klasörünü aç" HorizontalAlignment="Left" Click="OpenBackupFolder_Click" />
+                        <Button Content="{l:Loc Btn_OpenBackupFolder}" HorizontalAlignment="Left" Click="OpenBackupFolder_Click" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
             <!-- ============ HAKKINDA ============ -->
-            <TabItem x:Name="AboutTab" Header="Hakkında">
+            <TabItem x:Name="AboutTab" Header="{l:Loc Tab_About}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="14">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                         <Image Source="Assets/ClipStack.ico" Width="48" Height="48" Margin="0,0,12,0"
@@ -241,8 +243,7 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,12"
-                               Text="Windows için hafif bir pano geçmişi yöneticisi. Kopyaladığın metin, görsel ve dosyaları saklar, kısayolla arayıp istediğin yere yeniden yapıştırmanı sağlar. Ditto'dan esinlenilmiştir." />
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,12" Text="{l:Loc About_Description}" />
 
                     <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions>
@@ -252,23 +253,31 @@
                         <Grid.RowDefinitions>
                             <RowDefinition /><RowDefinition /><RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Style="{StaticResource StatLabel}" Text="Kısayol:" />
+                        <TextBlock Grid.Row="0" Style="{StaticResource StatLabel}" Text="{l:Loc About_Hotkey}" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="AboutHotkey" />
-                        <TextBlock Grid.Row="1" Style="{StaticResource StatLabel}" Text="Çalışma ortamı:" />
+                        <TextBlock Grid.Row="1" Style="{StaticResource StatLabel}" Text="{l:Loc About_Runtime}" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="AboutRuntime" TextWrapping="Wrap" />
-                        <TextBlock Grid.Row="2" Style="{StaticResource StatLabel}" Text="Veri klasörü:" />
+                        <TextBlock Grid.Row="2" Style="{StaticResource StatLabel}" Text="{l:Loc About_DataFolder}" />
                         <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource StatValue}" x:Name="AboutDataFolder" TextWrapping="Wrap" />
                     </Grid>
 
-                    <Button Content="Veri klasörünü aç" HorizontalAlignment="Left" Click="OpenDataFolder_Click" />
+                    <Button Content="{l:Loc Btn_OpenDataFolder}" HorizontalAlignment="Left" Click="OpenDataFolder_Click" />
+
+                    <TextBlock Text="{l:Loc Sec_License}" Style="{StaticResource Section}" Margin="0,18,0,6" />
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,0,0,8" Text="{l:Loc About_License}" />
+                    <WrapPanel>
+                        <Button Content="{l:Loc Btn_License}" Margin="0,0,6,6" Click="OpenLicense_Click" />
+                        <Button Content="{l:Loc Btn_Notices}" Margin="0,0,6,6" Click="OpenNotices_Click" />
+                    </WrapPanel>
                 </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-            <Button Content="Tamam" IsDefault="True" Margin="0,0,6,0" Click="Ok_Click" />
-            <Button Content="İptal" IsCancel="True" Margin="0,0,6,0" Click="Cancel_Click" />
-            <Button Content="Uygula" Click="Apply_Click" />
+            <Button Content="{l:Loc Btn_Ok}" IsDefault="True" Margin="0,0,6,0" Click="Ok_Click" />
+            <Button Content="{l:Loc Btn_Cancel}" IsCancel="True" Margin="0,0,6,0" Click="Cancel_Click" />
+            <Button Content="{l:Loc Btn_Apply}" Click="Apply_Click" />
         </StackPanel>
     </Grid>
 </Window>

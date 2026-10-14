@@ -9,6 +9,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using ClipStack.Resources;
 
 namespace ClipStack
 {
@@ -265,7 +266,7 @@ namespace ClipStack
             _undo.Add(deleted);
             if (_undo.Count > MaxUndo) _undo.RemoveAt(0);
             _lastDeleteTick = Environment.TickCount64;
-            ShowStatus("Kayıt silindi.  Geri almak için Ctrl+Z.");
+            ShowStatus(Strings.Popup_Deleted);
         }
 
         private void UndoDelete()
@@ -282,8 +283,8 @@ namespace ClipStack
                 List.ScrollIntoView(item);
             }
             ShowStatus(restored
-                ? "Silinen kayıt geri getirildi." + (_undo.Count > 0 ? $"  ({_undo.Count} silme daha geri alınabilir)" : "")
-                : "Bu içerik zaten yeniden kopyalanmış; listede duruyor.");
+                ? Strings.Popup_Restored + (_undo.Count > 0 ? Localization.F(Strings.Popup_MoreUndo, _undo.Count) : "")
+                : Strings.Popup_RestoreDuplicate);
             _lastDeleteTick = Environment.TickCount64; // art arda Ctrl+Z ile birden çok silme geri alınabilsin
         }
 
@@ -352,7 +353,13 @@ namespace ClipStack
 
                 if (!ok)
                 {
-                    MessageBox.Show("Pano şu anda başka bir uygulama tarafından kilitli.", "ClipStack");
+                    string? holder = PasteService.ClipboardHolder();
+                    Log.Error($"Panoya yazılamadı (id={item.Id}, tür={item.Kind}): pano kilitli" +
+                              (holder != null ? $", kilitleyen: {holder}" : ", kilitleyen bilinmiyor"));
+                    MessageBox.Show(holder != null
+                            ? Localization.F(Strings.Popup_ClipboardLockedBy, holder)
+                            : Strings.Popup_ClipboardLocked,
+                        "ClipStack");
                     return;
                 }
                 _db.Touch(item.Id);
@@ -367,7 +374,7 @@ namespace ClipStack
             {
                 // async void: burada yakalanmayan hata doğrudan uygulamayı düşürmeye gider.
                 Log.Error($"Kayıt yapıştırılamadı (id={item.Id})", ex);
-                MessageBox.Show("Kayıt yapıştırılamadı:\n" + ex.Message, "ClipStack",
+                MessageBox.Show(Localization.F(Strings.Popup_PasteFailed, ex.Message), "ClipStack",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             finally
@@ -451,29 +458,29 @@ namespace ClipStack
                 {
                     var files = _db.GetFiles(item.Id);
                     var sb = new StringBuilder();
-                    sb.AppendLine($"{files.Length} dosya/klasör:").AppendLine();
+                    sb.AppendLine(Localization.F(Strings.Preview_FilesHeader, files.Length)).AppendLine();
                     foreach (var f in files.Take(PreviewMaxFiles))
                     {
                         bool exists = File.Exists(f) || Directory.Exists(f);
-                        sb.AppendLine(exists ? f : f + "   (artık yok)");
+                        sb.AppendLine(exists ? f : f + Strings.Preview_FileMissing);
                     }
                     if (files.Length > PreviewMaxFiles)
-                        sb.AppendLine($"… ve {files.Length - PreviewMaxFiles} tane daha");
+                        sb.AppendLine(Localization.F(Strings.Preview_MoreFiles, files.Length - PreviewMaxFiles));
                     ShowPreviewText(sb.ToString());
                 }
                 else
                 {
                     string text = _db.GetText(item.Id) ?? "";
                     if (text.Length > PreviewMaxChars)
-                        text = text.Substring(0, PreviewMaxChars) +
-                               $"\n\n… (ilk {PreviewMaxChars:N0} karakter gösteriliyor, toplam {text.Length:N0})";
+                        text = text.Substring(0, PreviewMaxChars) + Localization.F(Strings.Preview_Truncated,
+                            PreviewMaxChars.ToString("N0", Localization.FormatCulture), text.Length.ToString("N0", Localization.FormatCulture));
                     ShowPreviewText(text);
                 }
             }
             catch (Exception ex)
             {
                 Log.Error($"Önizleme gösterilemedi (id={item.Id})", ex);
-                ShowPreviewText("Önizleme gösterilemedi: " + ex.Message);
+                ShowPreviewText(Localization.F(Strings.Preview_Failed, ex.Message));
             }
         }
 

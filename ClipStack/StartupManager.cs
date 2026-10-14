@@ -68,9 +68,11 @@ namespace ClipStack
                     run.SetValue(ValueName, Command, RegistryValueKind.String);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Kayıt defterine erişim engelliyse (grup ilkesi vb.) sessizce geç.
+                // Kayıt defterine erişim engelliyse (grup ilkesi vb.) uygulama çalışmaya devam eder; ama iz kalsın:
+                // kullanıcı "Windows ile başlatmıyor" derse sebebi log'da görünür.
+                Log.Error("\"Windows ile başlat\" kaydındaki yol güncellenemedi", ex);
             }
         }
 

@@ -57,6 +57,10 @@ namespace ClipStack
         [DllImport("user32.dll")]
         public static extern IntPtr GetClipboardOwner();
 
+        /// <summary>Panoyu o an açık tutan (kilitleyen) pencere; kimse açmamışsa IntPtr.Zero.</summary>
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetOpenClipboardWindow();
+
         /// <summary>Pano içeriği her değiştiğinde artan sayı.</summary>
         [DllImport("user32.dll")]
         public static extern uint GetClipboardSequenceNumber();

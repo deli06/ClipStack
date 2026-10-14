@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ClipStack.Resources;
 using Microsoft.Data.Sqlite;
 
 namespace ClipStack
@@ -55,7 +56,7 @@ namespace ClipStack
         {
             get
             {
-                if (IsImage) return $"Görsel  {Width}×{Height}";
+                if (IsImage) return Localization.F(Strings.Item_ImagePreview, Width, Height);
                 if (IsFiles)
                 {
                     // Dosya kayıtlarında metin, satır başına bir tam yol tutar; listede sadece adlar.
@@ -75,16 +76,17 @@ namespace ClipStack
         {
             get
             {
-                string when = LastUsed.Date == DateTime.Today
-                    ? LastUsed.ToString("HH:mm")
-                    : LastUsed.ToString("dd.MM.yyyy HH:mm");
+                // Bugünse sadece saat; değilse kısa tarih + saat, dile/bölgeye uygun biçimde ("g": 14.10.2026 05:41 · 10/14/2026 5:41 AM).
+                var culture = Localization.FormatCulture;
+                string when = LastUsed.ToString(LastUsed.Date == DateTime.Today ? "t" : "g", culture);
+                string app = SourceApp ?? "?";
                 if (IsImage)
-                    return $"{when} · {SourceApp ?? "?"} · {Width}×{Height} görsel";
+                    return $"{when} · {app} · {Localization.F(Strings.Item_ImageMeta, Width, Height)}";
                 if (IsFiles)
-                    return $"{when} · {SourceApp ?? "?"} · {LineCount} dosya";
-                string lines = LineCount > 1 ? $" · {LineCount} satır" : "";
-                string fmt = HasFormat ? " · biçimli" : "";
-                return $"{when} · {SourceApp ?? "?"}{lines} · {Length} karakter{fmt}";
+                    return $"{when} · {app} · {Localization.F(Strings.Item_FilesMeta, LineCount)}";
+                string lines = LineCount > 1 ? " · " + Localization.F(Strings.Item_Lines, LineCount.ToString("N0", culture)) : "";
+                string fmt = HasFormat ? " · " + Strings.Item_Formatted : "";
+                return $"{when} · {app}{lines} · {Localization.F(Strings.Item_Chars, Length.ToString("N0", culture))}{fmt}";
             }
         }
 
@@ -462,7 +464,7 @@ namespace ClipStack
         /// küçük resmi arka planda hazırlayıp <see cref="AddImage(PreparedImage, string?)"/> çağırır.
         /// </summary>
         public void AddImage(byte[] png, string? sourceApp) =>
-            AddImage(ImageProcessing.Prepare(png) ?? throw new InvalidDataException("Görsel okunamadı."), sourceApp);
+            AddImage(ImageProcessing.Prepare(png) ?? throw new InvalidDataException(Strings.Error_ImageUnreadable), sourceApp);
 
         /// <summary>Hazırlanmış görseli ana bağlantıyla ekler; aynı görsel varsa en üste taşır.</summary>
         public void AddImage(PreparedImage image, string? sourceApp)
@@ -832,7 +834,7 @@ namespace ClipStack
         {
             string full = Path.GetFullPath(destination);
             if (string.Equals(full, Path.GetFullPath(_path), StringComparison.OrdinalIgnoreCase))
-                throw new InvalidOperationException("Yedek, kullanılan veritabanının üzerine yazılamaz.");
+                throw new InvalidOperationException(Strings.Error_BackupOverCurrent);
 
             Directory.CreateDirectory(Path.GetDirectoryName(full)!);
             string tmp = full + ".tmp";
@@ -874,18 +876,15 @@ namespace ClipStack
         {
             string full = Path.GetFullPath(backupPath);
             if (string.Equals(full, Path.GetFullPath(_path), StringComparison.OrdinalIgnoreCase))
-                throw new InvalidOperationException("Kullanılan veritabanı kendisine aktarılamaz.");
+                throw new InvalidOperationException(Strings.Error_ImportSelf);
             if (!File.Exists(full))
-                throw new FileNotFoundException("Yedek dosyası bulunamadı.", full);
+                throw new FileNotFoundException(Strings.Error_BackupNotFound, full);
 
             // Şifresiz yedekler (başka bilgisayardan, eski sürümden) olduğu gibi; diğerleri bizim anahtarımızla açılır.
             byte[]? backupKey = IsPlaintextDatabase(full) ? null : _key;
             var backupCols = ReadColumns(full, backupKey);
             if (backupCols.Count == 0 || RequiredColumns.Any(c => !backupCols.Contains(c)))
-                throw new InvalidDataException(backupKey == null
-                    ? "Seçilen dosya geçerli bir ClipStack yedeği değil."
-                    : "Seçilen dosya açılamadı: ClipStack yedeği değil ya da başka bir Windows hesabında/bilgisayarda şifrelenmiş. " +
-                      "Başka bilgisayara taşımak için yedeği şifresiz alın.");
+                throw new InvalidDataException(backupKey == null ? Strings.Error_NotABackup : Strings.Error_ForeignBackup);
 
             // Kendi bağlantısı: arka plan iş parçacığından çağrılabilsin (çok görselli yedekte saniyeler sürebilir).
             using var conn = OpenConnection(_path, _key);
@@ -959,8 +958,8 @@ namespace ClipStack
             {
                 var when = DateTimeOffset.FromUnixTimeMilliseconds(r.GetInt64(2)).LocalDateTime;
                 string app = r.IsDBNull(1) ? "?" : r.GetString(1);
-                string pin = r.GetInt64(3) != 0 ? " · sabitlenmiş" : "";
-                writer.WriteLine($"===== {when:dd.MM.yyyy HH:mm} · {app}{pin} =====");
+                string pin = r.GetInt64(3) != 0 ? " · " + Strings.Export_Pinned : "";
+                writer.WriteLine($"===== {when.ToString("g", Localization.FormatCulture)} · {app}{pin} =====");
                 writer.WriteLine(r.GetString(0));
                 writer.WriteLine();
                 count++;

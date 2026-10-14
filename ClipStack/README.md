@@ -71,12 +71,13 @@ Pencere açıkken yeni bir şey kopyalanırsa liste kendiliğinden yenilenir. Pe
 | `WindowPlacement.cs` | Pencereyi hedef monitörün fiziksel pikselleri ve DPI’ı ile konumlandırır |
 | `ImageProcessing.cs` | Görseli arka planda hazırlar (PNG’ye çevirme, küçük resim, özet) |
 | `app.manifest` | Per-Monitor V2 DPI bildirimi (farklı ölçekli monitörlerde keskin görüntü ve doğru konum) |
+| `Localization.cs`, `Resources/Strings*.resx` | Arayüz dili: Türkçe (`Strings.resx`, varsayılan) ve İngilizce (`Strings.en.resx`). Log mesajları her zaman Türkçedir. |
 
 Veriler: `%LOCALAPPDATA%\ClipStack\` içinde `history.db` (şifreli), `db.key` (DPAPI ile korunan anahtar), `settings.json`, `log.txt` ve `Backups\`.
 
 ## Seçenekler
 Tepsi ikonuna sağ tık → **Seçenekler…** veya geçmiş penceresinde **Ctrl+O**. Değişiklikler "Uygula"ya basınca hemen etkili olur.
-- **Genel:** en fazla kopya sayısı, bunlardan en fazla kaçının görsel olabileceği, kayıtları X gün sonra silme; görünüm (tema: Windows’a uy / açık / koyu; geçmiş penceresi: imlecin yanında / son konumunda / ekranın ortasında); Windows ile başlat.
+- **Genel:** en fazla kopya sayısı, bunlardan en fazla kaçının görsel olabileceği, kayıtları X gün sonra silme; görünüm (tema: Windows’a uy / açık / koyu; geçmiş penceresi: imlecin yanında / son konumunda / ekranın ortasında; dil: Windows’a uy / Türkçe / English — yeniden başlatınca geçerli olur); Windows ile başlat.
 - **Kısayol ve Gizlilik:** geçmişi açan kısayol (kutuya tıklayıp yeni birleşime bas), kaydedilmeyecek uygulamalar (satır başına bir süreç adı).
 - **İstatistikler:** toplam kopyalama/yapıştırma, kayıt sayıları, veritabanı boyutu; sayaç sıfırlama, sıkıştırma, geçmişi temizleme.
 - **Yedekleme:** elle yedek alma (.db), yedekten geri yükleme (mevcut geçmişe ekler, hiçbir şey silmez), metinleri .txt olarak dışa aktarma, günlük otomatik yedek (son 7 tanesi saklanır).
@@ -92,7 +93,7 @@ Silinen kayıtların yeri veritabanı dosyasından otomatik geri verilir (SQLite
 - **Anahtar kaybı:** Windows hesabı silinir/sıfırlanırsa veya `db.key` kaybolursa geçmiş açılamaz. ClipStack bu durumda eski dosyaları silmeden kenara alıp boş geçmişle başlamayı önerir.
 - **Yedekler:** Otomatik yedekler şifrelidir. Elle yedek alırken şifreli (sadece bu hesapta açılır) veya şifresiz (başka bilgisayara taşınabilir ama dosyayı açan okuyabilir) seçilebilir. Metin dışa aktarma (.txt) her zaman şifresizdir.
 - **Kaydedilmeyenler:** "Beni kaydetme" işareti koyan uygulamalar (parola yöneticilerinin çoğu); hariç tutulan uygulamalar listesi (varsayılan: yaygın parola yöneticileri); bilinen token/anahtar biçimleri (GitHub, GitLab, Slack, npm, AWS, Google, Stripe, `sk-…` API anahtarları, JWT, PEM özel anahtarlar, Azure bağlantı anahtarları); isteğe bağlı olarak parolaya benzeyen tek parça metinler. Atlanan içeriğin kendisi log'a yazılmaz, sadece türü yazılır.
-- **Kaydı duraklat:** Tepsi menüsü → Kaydı duraklat → 5 dk / 15 dk / 1 saat / sürdürene kadar. Duraklatılmışken tepsi ikonunda turuncu işaret, geçmiş penceresinde uyarı görünür. Duraklatma, uygulama kapanınca sona erer.
+- **Kopyalamayı duraklat:** Tepsi menüsü → Kopyalamayı duraklat → 5 dk / 15 dk / 1 saat / sürdürene kadar. Duraklatılmışken tepsi ikonunda turuncu işaret, geçmiş penceresinde uyarı görünür. Duraklatma, uygulama kapanınca sona erer.
 
 ## Bilinen sınırlamalar
 - Şifrelemeden önce diskte duran eski şifresiz dosyanın silinen blokları diskte fiziksel olarak kalabilir (SSD/dosya sistemi davranışı); tamamen kapatmak için disk şifrelemesi (BitLocker) önerilir.
@@ -103,3 +104,10 @@ Silinen kayıtların yeri veritabanı dosyasından otomatik geri verilir (SQLite
 ## Sonraki adımlar
 1. Gruplar/etiketler, snippet şablonları
 2. Kurulum paketi (MSIX veya Inno Setup)
+
+## Çeviri / Translations
+Arayüz metinleri `ClipStack\Resources\Strings.resx` (Türkçe) ve `Strings.en.resx` (İngilizce) dosyalarındadır.
+Kodda `Strings.Anahtar`, XAML'de `{l:Loc Anahtar}` ile kullanılır; `Strings` sınıfı derleme sırasında üretilir.
+Yeni dil eklemek için `Strings.<dil>.resx` (ör. `Strings.de.resx`) oluşturup `Localization.cs` içindeki dil listesine ekleyin.
+Testler iki dosyanın aynı anahtarlara ve aynı `{0}` yer tutucularına sahip olduğunu, XAML'deki her anahtarın var olduğunu
+ve kullanılmayan metin kalmadığını denetler.

@@ -96,7 +96,7 @@ namespace ClipStack.Tests
             Assert.Equal(longText.Length, item.Length);
             Assert.Equal(1000, item.LineCount);
             Assert.EndsWith("…", item.Preview);
-            Assert.Contains("1000 satır", item.Meta);
+            Assert.Contains("1.000 satır", item.Meta); // sayılar dile göre biçimlenir (tr: binlik ayırıcı nokta)
             Assert.Equal(longText, _db.GetText(item.Id));
 
             // Aranan kelime metnin baş kısmında olmasa da bulunmalı.

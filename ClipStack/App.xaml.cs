@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using ClipStack.Resources;
 using Forms = System.Windows.Forms;
 
 namespace ClipStack
@@ -37,7 +38,11 @@ namespace ClipStack
         {
             base.OnStartup(e);
             HookUnhandledExceptions();
+            // Ayarlar okunmadan önce gösterilebilecek mesajlar ("zaten çalışıyor") için Windows dili;
+            // ayarlardaki dil Initialize'da uygulanır.
+            Localization.Apply(AppLanguage.System);
             StartedWithWindows = e.Args.Any(a => string.Equals(a, StartupArg, StringComparison.OrdinalIgnoreCase));
+            WaitForPreviousInstance(e.Args);
 
             _singleInstance = new Mutex(true, MutexName, out bool isNew);
             if (!isNew)
@@ -55,11 +60,58 @@ namespace ClipStack
             {
                 // Veritabanı kilitli/bozuk, pano dinleyicisi eklenemedi vb. Sessizce kapanmak yerine söyle.
                 Log.Error("Başlatma başarısız", ex);
-                MessageBox.Show(
-                    "ClipStack başlatılamadı:\n\n" + ex.Message + "\n\nAyrıntılar: " + Log.FilePath,
+                MessageBox.Show(Localization.F(Strings.App_StartFailed, ex.Message, Log.FilePath),
                     "ClipStack", MessageBoxButton.OK, MessageBoxImage.Error);
                 Shutdown(1);
             }
+        }
+
+        /// <summary>Yeniden başlatmada yeni örneğe verilen argüman: "--after &lt;eski süreç no&gt;".</summary>
+        public const string AfterArg = "--after";
+
+        /// <summary>
+        /// Yeniden başlatma (dil değişikliği) sırasında eski örnek kapanmadan yeni örnek açılırsa, tek örnek
+        /// kontrolü onu "ikinci örnek" sanıp kapatırdı. Bu yüzden yeni örnek, eskisinin çıkmasını bekler.
+        /// </summary>
+        private static void WaitForPreviousInstance(string[] args)
+        {
+            int? pid = ParseAfterArg(args);
+            if (pid == null) return;
+            try
+            {
+                using var previous = System.Diagnostics.Process.GetProcessById(pid.Value);
+                previous.WaitForExit(10_000);
+            }
+            catch (ArgumentException)
+            {
+                // Zaten kapanmış.
+            }
+        }
+
+        internal static int? ParseAfterArg(string[] args)
+        {
+            int i = Array.FindIndex(args, a => string.Equals(a, AfterArg, StringComparison.OrdinalIgnoreCase));
+            return i >= 0 && i + 1 < args.Length && int.TryParse(args[i + 1], out int pid) && pid > 0 ? pid : null;
+        }
+
+        /// <summary>Uygulamayı yeniden başlatır (ör. dil değişince). Yeni örnek bu süreç kapanınca açılır.</summary>
+        public void Restart()
+        {
+            Log.Info("Yeniden başlatılıyor (dil değişikliği).");
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(Environment.ProcessPath!)
+                {
+                    ArgumentList = { AfterArg, Environment.ProcessId.ToString() },
+                    UseShellExecute = false
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Yeniden başlatılamadı", ex);
+                return; // açık kalmak, hiç açılmamaktan iyidir
+            }
+            Shutdown();
         }
 
         /// <summary>
@@ -83,17 +135,19 @@ namespace ClipStack
             else
             {
                 // Olayı tanımayan eski bir sürüm çalışıyor.
-                MessageBox.Show("ClipStack zaten çalışıyor.", "ClipStack");
+                MessageBox.Show(Strings.App_AlreadyRunning, "ClipStack");
             }
         }
 
         private void Initialize()
         {
+            // Her oturumun ilk satırı: sonraki hataların hangi sürüme/ortama ait olduğu log'dan anlaşılsın.
+            Log.Info(SessionDescription());
+
             Settings.Load();
+            Localization.Apply(Settings.Current.Language); // pencereler ve tepsi menüsü oluşmadan önce
             ThemeManager.Initialize(); // pencereler oluşmadan önce: renkler ilk çizimden itibaren doğru olsun
             StartupManager.RefreshPathIfEnabled();
-            if (StartedWithWindows)
-                Log.Info("Windows ile başlatıldı.");
 
             _db = OpenDatabase();
             _db.ApplyLimits(); // kapalıyken süresi dolanları hemen temizle
@@ -119,11 +173,14 @@ namespace ClipStack
 
             CreateTray();
 
+            if (Settings.LoadProblem != null)
+                _tray!.ShowBalloonTip(8000, "ClipStack",
+                    Settings.LoadProblem + "\n" + Localization.F(Strings.App_Details, Log.FilePath),
+                    Forms.ToolTipIcon.Warning);
+
             if (!_monitor.RegisterHotkey(Settings.Current.HotkeyModifiers, Settings.Current.HotkeyKey))
             {
-                _tray!.ShowBalloonTip(5000, "ClipStack",
-                    $"{Settings.HotkeyText} kısayolu başka bir uygulama tarafından kullanılıyor. " +
-                    "Tepsi ikonuna çift tıklayarak açabilir, Seçenekler'den kısayolu değiştirebilirsin.",
+                _tray!.ShowBalloonTip(5000, "ClipStack", Localization.F(Strings.App_HotkeyInUse, Settings.HotkeyText),
                     Forms.ToolTipIcon.Warning);
             }
 
@@ -153,11 +210,7 @@ namespace ClipStack
             catch (Exception ex) when (ex is DatabaseKeyException or System.Security.Cryptography.CryptographicException)
             {
                 Log.Error("Geçmiş açılamadı (anahtar)", ex);
-                var answer = MessageBox.Show(
-                    "Pano geçmişi açılamadı: şifreleme anahtarı bu Windows hesabında çözülemiyor ya da geçmiş başka bir " +
-                    "anahtarla şifrelenmiş (ör. dosyalar başka bir bilgisayardan/hesaptan kopyalandı).\n\n" +
-                    "Eski dosyalar silinmeden kenara alınıp boş bir geçmişle başlansın mı?\n" +
-                    "\"Hayır\" derseniz ClipStack kapanır.",
+                var answer = MessageBox.Show(Strings.App_KeyProblem,
                     "ClipStack", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (answer != MessageBoxResult.Yes)
                     throw;
@@ -188,8 +241,8 @@ namespace ClipStack
         public string? PauseDescription => _pausedUntil switch
         {
             null => null,
-            { } t when t == DateTime.MaxValue => "⏸ Kayıt duraklatıldı (sürdürülene kadar). Kopyalananlar geçmişe eklenmiyor.",
-            { } t => $"⏸ Kayıt {t:HH:mm}'e kadar duraklatıldı. Kopyalananlar geçmişe eklenmiyor."
+            { } t when t == DateTime.MaxValue => Strings.Pause_UntilResumed,
+            { } t => Localization.F(Strings.Pause_Until, t.ToString("t", Localization.FormatCulture))
         };
 
         /// <summary>Kaydı belirtilen süre (null: sürdürülene kadar) duraklatır.</summary>
@@ -218,7 +271,7 @@ namespace ClipStack
             _pauseTimer?.Stop();
             Log.Info("Kayıt sürdürüldü.");
             UpdatePauseUi();
-            _tray?.ShowBalloonTip(3000, "ClipStack", "Kayıt yeniden açıldı.", Forms.ToolTipIcon.Info);
+            _tray?.ShowBalloonTip(3000, "ClipStack", Strings.Pause_Resumed, Forms.ToolTipIcon.Info);
         }
 
         private void UpdatePauseUi()
@@ -301,6 +354,26 @@ namespace ClipStack
             }
         }
 
+        /// <summary>Örn. "ClipStack 0.4.0 başlatıldı · Windows ile · .NET 8.0.31 · Microsoft Windows 10.0.19045 · x64 · %125 · PID 1234".</summary>
+        internal string SessionDescription()
+        {
+            var version = typeof(App).Assembly.GetName().Version?.ToString(3) ?? "?";
+            var parts = new System.Collections.Generic.List<string> { $"ClipStack {version} başlatıldı" };
+            if (StartedWithWindows) parts.Add("Windows ile");
+            parts.Add(System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription);
+            parts.Add(System.Runtime.InteropServices.RuntimeInformation.OSDescription);
+            parts.Add(System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant());
+            try
+            {
+                Native.GetCursorPos(out var p);
+                uint dpi = WindowPlacement.MonitorFromPoint(p.X, p.Y).Dpi;
+                parts.Add($"ekran ölçeği %{dpi * 100 / 96}");
+            }
+            catch { /* ölçek bilgisi isteğe bağlı */ }
+            parts.Add($"PID {Environment.ProcessId}");
+            return string.Join(" · ", parts);
+        }
+
         private void ListenForSecondInstance()
         {
             _showEvent = new EventWaitHandle(false, EventResetMode.AutoReset, ShowEventName);
@@ -357,9 +430,7 @@ namespace ClipStack
             {
                 Log.Error("Beklenmeyen hata (arayüz)", args.Exception);
                 args.Handled = true;
-                MessageBox.Show(
-                    "Beklenmeyen bir hata oluştu, ClipStack çalışmaya devam ediyor:\n\n" + args.Exception.Message +
-                    "\n\nAyrıntılar: " + Log.FilePath,
+                MessageBox.Show(Localization.F(Strings.App_UnexpectedError, args.Exception.Message, Log.FilePath),
                     "ClipStack", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
             AppDomain.CurrentDomain.UnhandledException += (_, args) =>
@@ -401,22 +472,22 @@ namespace ClipStack
         private void CreateTray()
         {
             var menu = new Forms.ContextMenuStrip();
-            menu.Items.Add("Geçmişi aç", null, (_, _) => ShowPopup(fromTray: true));
-            menu.Items.Add("Seçenekler…", null, (_, _) => ShowOptions());
+            menu.Items.Add(Strings.Tray_Open, null, (_, _) => ShowPopup(fromTray: true));
+            menu.Items.Add(Strings.Tray_Options, null, (_, _) => ShowOptions());
             menu.Items.Add(new Forms.ToolStripSeparator());
 
             // Hassas bir işlem öncesi (parola girme, gizli belge) kaydı geçici olarak kapatmak için.
-            _pauseMenu = new Forms.ToolStripMenuItem("Kaydı duraklat");
-            _pauseMenu.DropDownItems.Add("5 dakika", null, (_, _) => Pause(TimeSpan.FromMinutes(5)));
-            _pauseMenu.DropDownItems.Add("15 dakika", null, (_, _) => Pause(TimeSpan.FromMinutes(15)));
-            _pauseMenu.DropDownItems.Add("1 saat", null, (_, _) => Pause(TimeSpan.FromHours(1)));
-            _pauseMenu.DropDownItems.Add("Ben sürdürene kadar", null, (_, _) => Pause(null));
-            _resumeMenu = new Forms.ToolStripMenuItem("Kaydı sürdür", null, (_, _) => Resume()) { Visible = false };
+            _pauseMenu = new Forms.ToolStripMenuItem(Strings.Tray_Pause);
+            _pauseMenu.DropDownItems.Add(Strings.Tray_Pause5, null, (_, _) => Pause(TimeSpan.FromMinutes(5)));
+            _pauseMenu.DropDownItems.Add(Strings.Tray_Pause15, null, (_, _) => Pause(TimeSpan.FromMinutes(15)));
+            _pauseMenu.DropDownItems.Add(Strings.Tray_Pause60, null, (_, _) => Pause(TimeSpan.FromHours(1)));
+            _pauseMenu.DropDownItems.Add(Strings.Tray_PauseIndefinitely, null, (_, _) => Pause(null));
+            _resumeMenu = new Forms.ToolStripMenuItem(Strings.Tray_Resume, null, (_, _) => Resume()) { Visible = false };
             menu.Items.Add(_pauseMenu);
             menu.Items.Add(_resumeMenu);
             menu.Items.Add(new Forms.ToolStripSeparator());
 
-            menu.Items.Add("Çıkış", null, (_, _) => Shutdown());
+            menu.Items.Add(Strings.Tray_Exit, null, (_, _) => Shutdown());
 
             _tray = new Forms.NotifyIcon
             {
@@ -434,13 +505,16 @@ namespace ClipStack
             _tray.Text = _pausedUntil switch
             {
                 null => $"ClipStack ({hotkeyText})",
-                { } t when t == DateTime.MaxValue => "ClipStack – kayıt duraklatıldı",
-                { } t => $"ClipStack – kayıt {t:HH:mm}'e kadar duraklatıldı"
+                { } t when t == DateTime.MaxValue => Strings.Tray_PausedIndefinitely,
+                { } t => Localization.F(Strings.Tray_PausedUntil, t.ToString("t", Localization.FormatCulture))
             };
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
+            // Bir oturumun başlangıç satırı olup kapanış satırı yoksa uygulama çökmüş/zorla kapatılmış demektir.
+            if (_db != null)
+                Log.Info($"ClipStack kapatıldı (çıkış kodu {e.ApplicationExitCode}).");
             _hourlyTimer?.Stop();
             ThemeManager.Shutdown();
             _pauseTimer?.Stop();

@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_StartFailed" xml:space="preserve">
+    <value>ClipStack başlatılamadı:
+
+{0}
+
+Ayrıntılar: {1}</value>
+  </data>
+  <data name="App_AlreadyRunning" xml:space="preserve">
+    <value>ClipStack zaten çalışıyor.</value>
+  </data>
+  <data name="App_Details" xml:space="preserve">
+    <value>Ayrıntılar: {0}</value>
+  </data>
+  <data name="App_HotkeyInUse" xml:space="preserve">
+    <value>{0} kısayolu başka bir uygulama tarafından kullanılıyor. Tepsi ikonuna çift tıklayarak açabilir, Seçenekler'den kısayolu değiştirebilirsiniz.</value>
+  </data>
+  <data name="App_KeyProblem" xml:space="preserve">
+    <value>Pano geçmişi açılamadı: şifreleme anahtarı bu Windows hesabında çözülemiyor ya da geçmiş başka bir anahtarla şifrelenmiş (ör. dosyalar başka bir bilgisayardan/hesaptan kopyalandı).
+
+Eski dosyalar silinmeden kenara alınıp boş bir geçmişle başlansın mı?
+"Hayır" derseniz ClipStack kapanır.</value>
+  </data>
+  <data name="App_UnexpectedError" xml:space="preserve">
+    <value>Beklenmeyen bir hata oluştu, ClipStack çalışmaya devam ediyor:
+
+{0}
+
+Ayrıntılar: {1}</value>
+  </data>
+  <data name="App_LanguageRestart" xml:space="preserve">
+    <value>Dil değişikliği ClipStack yeniden başlatılınca geçerli olur. Şimdi yeniden başlatılsın mı?</value>
+  </data>
+  <data name="Pause_UntilResumed" xml:space="preserve">
+    <value>⏸ Kayıt duraklatıldı (sürdürülene kadar). Kopyalananlar geçmişe eklenmiyor.</value>
+  </data>
+  <data name="Pause_Until" xml:space="preserve">
+    <value>⏸ Kayıt duraklatıldı (bitiş: {0}). Kopyalananlar geçmişe eklenmiyor.</value>
+  </data>
+  <data name="Pause_Resumed" xml:space="preserve">
+    <value>Kayıt yeniden açıldı.</value>
+  </data>
+  <data name="Tray_PausedIndefinitely" xml:space="preserve">
+    <value>ClipStack – kayıt duraklatıldı</value>
+  </data>
+  <data name="Tray_PausedUntil" xml:space="preserve">
+    <value>ClipStack – kayıt duraklatıldı (bitiş: {0})</value>
+  </data>
+  <data name="Tray_Open" xml:space="preserve">
+    <value>Geçmişi aç</value>
+  </data>
+  <data name="Tray_Options" xml:space="preserve">
+    <value>Seçenekler…</value>
+  </data>
+  <data name="Tray_Pause" xml:space="preserve">
+    <value>Kopyalamayı duraklat</value>
+  </data>
+  <data name="Tray_Pause5" xml:space="preserve">
+    <value>5 dakika</value>
+  </data>
+  <data name="Tray_Pause15" xml:space="preserve">
+    <value>15 dakika</value>
+  </data>
+  <data name="Tray_Pause60" xml:space="preserve">
+    <value>1 saat</value>
+  </data>
+  <data name="Tray_PauseIndefinitely" xml:space="preserve">
+    <value>Ben sürdürene kadar</value>
+  </data>
+  <data name="Tray_Resume" xml:space="preserve">
+    <value>Kopyalamayı sürdür</value>
+  </data>
+  <data name="Tray_Exit" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
+  <data name="Popup_Hints" xml:space="preserve">
+    <value>Enter: yapıştır   ·   Shift+Enter: düz metin   ·   Ctrl+Enter: sadece kopyala   ·   Ctrl+1…9: hızlı yapıştır   ·   F3: önizleme   ·   Ctrl+P: sabitle   ·   Shift+Del: sil   ·   Ctrl+Z: silmeyi geri al   ·   Ctrl+O: seçenekler   ·   Esc: kapat</value>
+  </data>
+  <data name="Popup_DragTooltip" xml:space="preserve">
+    <value>Pencereyi taşımak için sürükleyin; boyutlandırmak için kenarlardan tutun.</value>
+  </data>
+  <data name="Popup_Deleted" xml:space="preserve">
+    <value>Kayıt silindi.  Geri almak için Ctrl+Z.</value>
+  </data>
+  <data name="Popup_Restored" xml:space="preserve">
+    <value>Silinen kayıt geri getirildi.</value>
+  </data>
+  <data name="Popup_MoreUndo" xml:space="preserve">
+    <value>  ({0} silme daha geri alınabilir)</value>
+  </data>
+  <data name="Popup_RestoreDuplicate" xml:space="preserve">
+    <value>Bu içerik zaten yeniden kopyalanmış; listede duruyor.</value>
+  </data>
+  <data name="Popup_ClipboardLockedBy" xml:space="preserve">
+    <value>Pano şu anda başka bir uygulama ({0}) tarafından kilitli. Birazdan tekrar deneyin.</value>
+  </data>
+  <data name="Popup_ClipboardLocked" xml:space="preserve">
+    <value>Pano şu anda başka bir uygulama tarafından kilitli. Birazdan tekrar deneyin.</value>
+  </data>
+  <data name="Popup_PasteFailed" xml:space="preserve">
+    <value>Kayıt yapıştırılamadı:
+{0}</value>
+  </data>
+  <data name="Preview_FilesHeader" xml:space="preserve">
+    <value>{0} dosya/klasör:</value>
+  </data>
+  <data name="Preview_FileMissing" xml:space="preserve">
+    <value>   (artık yok)</value>
+  </data>
+  <data name="Preview_MoreFiles" xml:space="preserve">
+    <value>… ve {0} tane daha</value>
+  </data>
+  <data name="Preview_Truncated" xml:space="preserve">
+    <value>
+
+… (ilk {0} karakter gösteriliyor, toplam {1})</value>
+  </data>
+  <data name="Preview_Failed" xml:space="preserve">
+    <value>Önizleme gösterilemedi: {0}</value>
+  </data>
+  <data name="Item_ImagePreview" xml:space="preserve">
+    <value>Görsel  {0}×{1}</value>
+  </data>
+  <data name="Item_ImageMeta" xml:space="preserve">
+    <value>{0}×{1} görsel</value>
+  </data>
+  <data name="Item_FilesMeta" xml:space="preserve">
+    <value>{0} dosya</value>
+  </data>
+  <data name="Item_Lines" xml:space="preserve">
+    <value>{0} satır</value>
+  </data>
+  <data name="Item_Chars" xml:space="preserve">
+    <value>{0} karakter</value>
+  </data>
+  <data name="Item_Formatted" xml:space="preserve">
+    <value>biçimli</value>
+  </data>
+  <data name="Export_Pinned" xml:space="preserve">
+    <value>sabitlenmiş</value>
+  </data>
+  <data name="Error_BackupOverCurrent" xml:space="preserve">
+    <value>Yedek, kullanılan veritabanının üzerine yazılamaz.</value>
+  </data>
+  <data name="Error_ImportSelf" xml:space="preserve">
+    <value>Kullanılan veritabanı kendisine aktarılamaz.</value>
+  </data>
+  <data name="Error_BackupNotFound" xml:space="preserve">
+    <value>Yedek dosyası bulunamadı.</value>
+  </data>
+  <data name="Error_NotABackup" xml:space="preserve">
+    <value>Seçilen dosya geçerli bir ClipStack yedeği değil.</value>
+  </data>
+  <data name="Error_ForeignBackup" xml:space="preserve">
+    <value>Seçilen dosya açılamadı: ClipStack yedeği değil ya da başka bir Windows hesabında/bilgisayarda şifrelenmiş. Başka bilgisayara taşımak için yedeği şifresiz alın.</value>
+  </data>
+  <data name="Error_CorruptImage" xml:space="preserve">
+    <value>Kayıtlı görsel bozuk, açılamadı.</value>
+  </data>
+  <data name="Error_ImageUnreadable" xml:space="preserve">
+    <value>Görsel okunamadı.</value>
+  </data>
+  <data name="Settings_LoadProblem" xml:space="preserve">
+    <value>Ayar dosyası bozuk olduğu için varsayılan ayarlar kullanılıyor.</value>
+  </data>
+  <data name="Settings_LoadProblemBackup" xml:space="preserve">
+    <value>
+Eski dosya saklandı: {0}</value>
+  </data>
+  <data name="Key_Space" xml:space="preserve">
+    <value>Boşluk</value>
+  </data>
+  <data name="Opt_Title" xml:space="preserve">
+    <value>ClipStack Seçenekleri</value>
+  </data>
+  <data name="Tab_General" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="Sec_History" xml:space="preserve">
+    <value>Geçmiş</value>
+  </data>
+  <data name="Lbl_MaxHistory" xml:space="preserve">
+    <value>Kaydedilecek en fazla kopya sayısı:</value>
+  </data>
+  <data name="Hint_MaxHistory" xml:space="preserve">
+    <value>Sınır aşılınca en uzun süredir kullanılmayan kayıt silinir. Sabitlenen kayıtlar bu sayıya dahil değildir. (10 – 100.000)</value>
+  </data>
+  <data name="Lbl_MaxImages" xml:space="preserve">
+    <value>Bunlardan en fazla kaçı görsel olabilir:</value>
+  </data>
+  <data name="Hint_MaxImages" xml:space="preserve">
+    <value>Görseller metne göre çok yer kaplar; sınır aşılınca en eski görsel silinir. (1 – 1.000)</value>
+  </data>
+  <data name="Chk_Expire" xml:space="preserve">
+    <value>Kayıtları şu süre sonra sil:</value>
+  </data>
+  <data name="Lbl_Days" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="Hint_Expire" xml:space="preserve">
+    <value>Süre, kaydın son kopyalandığı veya yapıştırıldığı andan itibaren sayılır. Sabitlenen kayıtlar asla silinmez. (1 – 3650)</value>
+  </data>
+  <data name="Sec_Appearance" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="Lbl_Theme" xml:space="preserve">
+    <value>Tema:</value>
+  </data>
+  <data name="Theme_System" xml:space="preserve">
+    <value>Windows'a uy</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="Lbl_PopupPlacement" xml:space="preserve">
+    <value>Geçmiş penceresi:</value>
+  </data>
+  <data name="Place_Cursor" xml:space="preserve">
+    <value>İmlecin yanında</value>
+  </data>
+  <data name="Place_Remember" xml:space="preserve">
+    <value>Son konumunda</value>
+  </data>
+  <data name="Place_Center" xml:space="preserve">
+    <value>Ekranın ortasında</value>
+  </data>
+  <data name="Lbl_Language" xml:space="preserve">
+    <value>Dil:</value>
+  </data>
+  <data name="Lang_System" xml:space="preserve">
+    <value>Windows'a uy</value>
+  </data>
+  <data name="Hint_Language" xml:space="preserve">
+    <value>Dil değişikliği ClipStack yeniden başlatılınca geçerli olur.</value>
+  </data>
+  <data name="Sec_System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Chk_Startup" xml:space="preserve">
+    <value>Windows ile başlat</value>
+  </data>
+  <data name="Opt_StartupPath" xml:space="preserve">
+    <value>Çalıştırılacak dosya: {0}</value>
+  </data>
+  <data name="Tab_Hotkey" xml:space="preserve">
+    <value>Kısayol ve Gizlilik</value>
+  </data>
+  <data name="Sec_Hotkey" xml:space="preserve">
+    <value>Geçmişi açan kısayol</value>
+  </data>
+  <data name="Btn_Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="Hint_Hotkey" xml:space="preserve">
+    <value>Kutuya tıklayıp yeni tuş birleşimine basın. Ctrl veya Alt içermeli (ör. Ctrl+Alt+V, Ctrl+Shift+Boşluk).</value>
+  </data>
+  <data name="Opt_HotkeyPrompt" xml:space="preserve">
+    <value>Tuş birleşimine basın…</value>
+  </data>
+  <data name="Opt_HotkeyNeedsModifier" xml:space="preserve">
+    <value>Ctrl veya Alt ile birlikte basın…</value>
+  </data>
+  <data name="Sec_ExcludedApps" xml:space="preserve">
+    <value>Kaydedilmeyecek uygulamalar</value>
+  </data>
+  <data name="Hint_ExcludedApps" xml:space="preserve">
+    <value>Her satıra bir süreç adı (ör. KeePass veya chrome.exe). Bu uygulamalardan kopyalananlar geçmişe alınmaz. Parola yöneticilerinin çoğu ayrıca kendini zaten gizler.</value>
+  </data>
+  <data name="Sec_ContentCheck" xml:space="preserve">
+    <value>İçerik kontrolü</value>
+  </data>
+  <data name="Chk_SkipSecrets" xml:space="preserve">
+    <value>Anahtar ve token içeren metinleri kaydetme (önerilir)</value>
+  </data>
+  <data name="Hint_SkipSecrets" xml:space="preserve">
+    <value>GitHub/GitLab/Slack/npm token'ları, AWS ve Google API anahtarları, JWT, özel anahtar (PEM) blokları vb.</value>
+  </data>
+  <data name="Chk_SkipPasswords" xml:space="preserve">
+    <value>Parolaya benzeyen tek parça metinleri kaydetme</value>
+  </data>
+  <data name="Hint_SkipPasswords" xml:space="preserve">
+    <value>Tarayıcının parola yöneticisinden kopyalanan parolaları yakalar (boşluksuz, 8–64 karakter, harf/rakam/simge karışık). Kod parçalarını da yanlışlıkla atlayabilir.</value>
+  </data>
+  <data name="Hint_Encryption" xml:space="preserve">
+    <value>🔒 Geçmiş diskte şifreli saklanır (SQLCipher). Anahtar Windows hesabınıza bağlıdır; dosyayı başka kullanıcı veya bilgisayar açamaz. Hassas bir işlem öncesi tepsi menüsünden "Kopyalamayı duraklat" da kullanılabilir.</value>
+  </data>
+  <data name="Opt_FieldMaxHistory" xml:space="preserve">
+    <value>Kaydedilecek en fazla kopya sayısı</value>
+  </data>
+  <data name="Opt_FieldMaxImages" xml:space="preserve">
+    <value>Görsel sınırı</value>
+  </data>
+  <data name="Opt_FieldExpireDays" xml:space="preserve">
+    <value>Silme süresi</value>
+  </data>
+  <data name="Opt_NumberRange" xml:space="preserve">
+    <value>{0} {1} ile {2} arasında bir sayı olmalı.</value>
+  </data>
+  <data name="Opt_ShrinkWarning" xml:space="preserve">
+    <value>Yeni ayarlar bazı eski kayıtların hemen silinmesine yol açabilir. Sabitlenen kayıtlar korunur.
+
+Devam edilsin mi?</value>
+  </data>
+  <data name="Opt_HotkeyTaken" xml:space="preserve">
+    <value>{0} kısayolu başka bir uygulama tarafından kullanılıyor. Başka bir birleşim seçin.</value>
+  </data>
+  <data name="Opt_SaveFailed" xml:space="preserve">
+    <value>Ayarlar kaydedilemedi:
+{0}</value>
+  </data>
+  <data name="Opt_StartupFailed" xml:space="preserve">
+    <value>"Windows ile başlat" ayarı değiştirilemedi:
+{0}</value>
+  </data>
+  <data name="Tab_Stats" xml:space="preserve">
+    <value>İstatistikler</value>
+  </data>
+  <data name="Stat_Since" xml:space="preserve">
+    <value>Sayım başlangıcı:</value>
+  </data>
+  <data name="Stat_Copies" xml:space="preserve">
+    <value>Toplam kopyalama:</value>
+  </data>
+  <data name="Stat_Pastes" xml:space="preserve">
+    <value>Geçmişten yapıştırma:</value>
+  </data>
+  <data name="Stat_Today" xml:space="preserve">
+    <value>Bugün eklenen kayıt:</value>
+  </data>
+  <data name="Stat_Items" xml:space="preserve">
+    <value>Kayıtlı öğe:</value>
+  </data>
+  <data name="Stat_Kinds" xml:space="preserve">
+    <value>Metin / Görsel / Dosya:</value>
+  </data>
+  <data name="Stat_Pinned" xml:space="preserve">
+    <value>Sabitlenmiş:</value>
+  </data>
+  <data name="Stat_Oldest" xml:space="preserve">
+    <value>En eski kayıt:</value>
+  </data>
+  <data name="Stat_Size" xml:space="preserve">
+    <value>Veritabanı boyutu:</value>
+  </data>
+  <data name="Opt_ItemsWithLimit" xml:space="preserve">
+    <value>{0}  (sınır: {1} + sabitlenenler)</value>
+  </data>
+  <data name="Opt_KindsDetail" xml:space="preserve">
+    <value>{0} / {1} / {2}  (biçimli metin: {3})</value>
+  </data>
+  <data name="Btn_Refresh" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="Btn_ResetStats" xml:space="preserve">
+    <value>Sayaçları sıfırla</value>
+  </data>
+  <data name="Btn_Compact" xml:space="preserve">
+    <value>Veritabanını sıkıştır</value>
+  </data>
+  <data name="Btn_ClearHistory" xml:space="preserve">
+    <value>Geçmişi temizle</value>
+  </data>
+  <data name="Opt_ResetStatsConfirm" xml:space="preserve">
+    <value>Kopyalama ve yapıştırma sayaçları sıfırlansın mı?
+Geçmişteki kayıtlar silinmez.</value>
+  </data>
+  <data name="Opt_CompactFailed" xml:space="preserve">
+    <value>Veritabanı sıkıştırılamadı</value>
+  </data>
+  <data name="Opt_Compacted" xml:space="preserve">
+    <value>Veritabanı sıkıştırıldı.
+{0} → {1}</value>
+  </data>
+  <data name="Opt_ClearConfirm" xml:space="preserve">
+    <value>Sabitlenmemiş tüm kayıtlar silinsin mi? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="Opt_ClearedCompactFailed" xml:space="preserve">
+    <value>Geçmiş temizlendi ama veritabanı sıkıştırılamadı</value>
+  </data>
+  <data name="Tab_Backup" xml:space="preserve">
+    <value>Yedekleme</value>
+  </data>
+  <data name="Sec_ManualBackup" xml:space="preserve">
+    <value>Elle yedek</value>
+  </data>
+  <data name="Btn_Backup" xml:space="preserve">
+    <value>Yedek al…</value>
+  </data>
+  <data name="Btn_Restore" xml:space="preserve">
+    <value>Yedekten geri yükle…</value>
+  </data>
+  <data name="Hint_Backup" xml:space="preserve">
+    <value>Yedek; metin, görsel, dosya kayıtları ve sabitlemelerle birlikte tüm geçmişi tek bir .db dosyasına yazar. Şifreli yedek sadece bu Windows hesabında açılır; başka bilgisayara taşımak için şifresiz alın (dosyayı güvenli yerde tutun). Geri yükleme mevcut geçmişi silmez, yedekteki kayıtları ekler (aynı içerik iki kez eklenmez).</value>
+  </data>
+  <data name="Sec_Export" xml:space="preserve">
+    <value>Dışa aktar</value>
+  </data>
+  <data name="Btn_ExportText" xml:space="preserve">
+    <value>Metinleri .txt olarak dışa aktar…</value>
+  </data>
+  <data name="Hint_Export" xml:space="preserve">
+    <value>Tüm metin kayıtlarını tarih ve kaynak uygulamayla birlikte okunabilir (şifresiz) bir metin dosyasına yazar.</value>
+  </data>
+  <data name="Sec_AutoBackup" xml:space="preserve">
+    <value>Otomatik yedek</value>
+  </data>
+  <data name="Chk_AutoBackup" xml:space="preserve">
+    <value>Günde bir kez otomatik yedek al</value>
+  </data>
+  <data name="Btn_OpenBackupFolder" xml:space="preserve">
+    <value>Yedek klasörünü aç</value>
+  </data>
+  <data name="Opt_BackupInfo" xml:space="preserve">
+    <value>Son {0} yedek saklanır: {1}</value>
+  </data>
+  <data name="Opt_LastAutoBackup" xml:space="preserve">
+    <value>
+Son otomatik yedek: {0} ({1})</value>
+  </data>
+  <data name="Opt_NoAutoBackup" xml:space="preserve">
+    <value>
+Henüz otomatik yedek yok.</value>
+  </data>
+  <data name="Opt_SaveBackupTitle" xml:space="preserve">
+    <value>Yedeği kaydet</value>
+  </data>
+  <data name="Opt_BackupFilter" xml:space="preserve">
+    <value>ClipStack yedeği (*.db)|*.db</value>
+  </data>
+  <data name="Opt_BackupFileName" xml:space="preserve">
+    <value>ClipStack-yedek-{0}.db</value>
+  </data>
+  <data name="Opt_EncryptQuestion" xml:space="preserve">
+    <value>Yedek şifreli olsun mu?
+
+Evet (önerilir): Sadece bu Windows hesabında geri yüklenebilir. Dosyayı ele geçiren okuyamaz.
+
+Hayır: Başka bilgisayarda da geri yüklenebilir, ama içindeki her şey (parolalar dahil) dosyayı açan herkes tarafından okunabilir.</value>
+  </data>
+  <data name="Opt_BackupFailed" xml:space="preserve">
+    <value>Yedek alınamadı</value>
+  </data>
+  <data name="Opt_BackupDoneEncrypted" xml:space="preserve">
+    <value>Şifreli yedek alındı:
+{0}
+({1})</value>
+  </data>
+  <data name="Opt_BackupDonePlain" xml:space="preserve">
+    <value>Şifresiz yedek alındı:
+{0}
+({1})</value>
+  </data>
+  <data name="Opt_RestoreTitle" xml:space="preserve">
+    <value>Geri yüklenecek yedeği seçin</value>
+  </data>
+  <data name="Opt_RestoreFilter" xml:space="preserve">
+    <value>ClipStack yedeği (*.db)|*.db|Tüm dosyalar (*.*)|*.*</value>
+  </data>
+  <data name="Opt_RestoreConfirm" xml:space="preserve">
+    <value>Yedekteki kayıtlar mevcut geçmişe eklenecek. Mevcut kayıtlar silinmez.
+
+Not: Toplam kayıt sayısı sınırı aşarsa, bir sonraki kopyalamada en eski sabitlenmemiş kayıtlar silinir. Hepsini korumak istiyorsanız önce Genel sekmesinden sınırı artırın.
+
+Devam edilsin mi?</value>
+  </data>
+  <data name="Opt_RestoreFailed" xml:space="preserve">
+    <value>Yedek geri yüklenemedi</value>
+  </data>
+  <data name="Opt_Restored" xml:space="preserve">
+    <value>{0} kayıt geri yüklendi.</value>
+  </data>
+  <data name="Opt_RestoredNothing" xml:space="preserve">
+    <value>Yedekteki tüm kayıtlar zaten geçmişte var.</value>
+  </data>
+  <data name="Opt_ExportTitle" xml:space="preserve">
+    <value>Metinleri dışa aktar</value>
+  </data>
+  <data name="Opt_ExportFilter" xml:space="preserve">
+    <value>Metin dosyası (*.txt)|*.txt</value>
+  </data>
+  <data name="Opt_ExportFileName" xml:space="preserve">
+    <value>ClipStack-metinler-{0}.txt</value>
+  </data>
+  <data name="Opt_ExportFailed" xml:space="preserve">
+    <value>Dışa aktarılamadı</value>
+  </data>
+  <data name="Opt_Exported" xml:space="preserve">
+    <value>{0} metin kaydı dışa aktarıldı:
+{1}</value>
+  </data>
+  <data name="Tab_About" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="Opt_Version" xml:space="preserve">
+    <value>Sürüm {0}</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>Windows için hafif bir pano geçmişi yöneticisi. Kopyaladığınız metin, görsel ve dosyaları saklar, kısayolla arayıp istediğiniz yere yeniden yapıştırmanızı sağlar. Ditto'dan esinlenilmiştir.</value>
+  </data>
+  <data name="About_Hotkey" xml:space="preserve">
+    <value>Kısayol:</value>
+  </data>
+  <data name="About_Runtime" xml:space="preserve">
+    <value>Çalışma ortamı:</value>
+  </data>
+  <data name="About_DataFolder" xml:space="preserve">
+    <value>Veri klasörü:</value>
+  </data>
+  <data name="Btn_OpenDataFolder" xml:space="preserve">
+    <value>Veri klasörünü aç</value>
+  </data>
+  <data name="Sec_License" xml:space="preserve">
+    <value>Lisans</value>
+  </data>
+  <data name="About_License" xml:space="preserve">
+    <value>ClipStack özgür yazılımdır: GNU Genel Kamu Lisansı (GPL) sürüm 3 veya sonraki bir sürümün koşullarıyla dağıtabilir ve değiştirebilirsiniz. Bu program HİÇBİR GARANTİ OLMADAN sunulur; ayrıntılar için lisans metnine bakın.</value>
+  </data>
+  <data name="Btn_License" xml:space="preserve">
+    <value>Lisans (GPL-3.0)</value>
+  </data>
+  <data name="Btn_Notices" xml:space="preserve">
+    <value>Üçüncü taraf bildirimleri</value>
+  </data>
+  <data name="Opt_FileNotFound" xml:space="preserve">
+    <value>{0} bulunamadı. Dosya, ClipStack'in kurulu olduğu klasörde olmalı.</value>
+  </data>
+  <data name="Btn_Ok" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Btn_Apply" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
+</root>
